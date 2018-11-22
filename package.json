@@ -1,0 +1,40 @@
+{
+	"name": "interRAOApp",
+	"version": "0.0.1",
+	"description": "interRAO SPA",
+	"author": "Kurochkin Artem",
+	"scripts": {
+		"dev": "webpack-dev-server --mode=development --hot --open",
+		"build": "webpack --mode=production",
+		"build-vendors": "webpack --mode production --config ./vendor-webpack.config.js"
+	},
+	"dependencies": {
+		"@angular/common": "~6.0.0",
+		"@angular/compiler": "~6.0.0",
+		"@angular/core": "~6.0.0",
+		"@angular/forms": "~6.0.0",
+		"@angular/platform-browser": "~6.0.0",
+		"@angular/platform-browser-dynamic": "~6.0.0",
+		"@angular/router": "~6.0.0",
+		"core-js": "2.5.7",
+		"rxjs": "6.2.2",
+		"zone.js": "0.8.26"
+	},
+	"devDependencies": {
+		"@types/node": "10.5.2",
+		"typescript": "~3.0.0",
+		"webpack": "~4.0.0",
+		"webpack-cli": "3.1.0",
+		"webpack-dev-server": "3.1.4",
+		"angular2-template-loader": "0.6.2",
+		"css-loader": "~1.0.0",
+		"style-loader": "~0.23.0",
+		"less-loader": "~4.1.0",
+		"less": "~3.8.1",
+		"raw-loader": "0.5.1",
+		"copy-webpack-plugin": "latest",
+		"awesome-typescript-loader": "5.2.0",
+		"uglifyjs-webpack-plugin": "~2.0.1",
+		"webpack-parallel-uglify-plugin": "~1.1.0"
+	}
+}
