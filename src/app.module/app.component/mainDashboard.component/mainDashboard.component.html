@@ -1,0 +1,5 @@
+<div class='main-dashboard'>	
+	<div class='cards'>
+		<info-card *ngFor='let card of Cards' [Data]="card" (click)='CardClick(card)'></info-card>
+	</div>
+</div>

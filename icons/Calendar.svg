@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #bebebe;
+      }
+    </style>
+  </defs>
+  <path id="Calendar" class="cls-1" d="M-804,78a2,2,0,0,1-2-2V65a2,2,0,0,1,2-2h1V61h2v2h7V61h2v2h1a2.006,2.006,0,0,1,2,2V76a2.006,2.006,0,0,1-2,2Zm0-2h13V69h-13Zm0-9h13V65h-13Zm2,7V71h3v3Z" transform="translate(806 -61)"/>
+</svg>

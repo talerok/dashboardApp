@@ -1,3 +1,7 @@
+interface IValueState{
+    (value: InfoCard) : string;
+}
+
 export class InfoCard{
     constructor(
         readonly name: string,
@@ -6,5 +10,6 @@ export class InfoCard{
         readonly value: number,
         readonly planValue: number,
         readonly prevValue: number,
+        readonly valueStateFunc: IValueState
         ){}
 }

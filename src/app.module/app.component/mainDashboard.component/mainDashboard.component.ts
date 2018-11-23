@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { InfoCard } from "../../models/InfoCard"
+import { InfoCard } from "../../../models/InfoCard"
 
 @Component({
-    selector: 'app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.less'],
+    selector: 'main-dashboard',
+    templateUrl: './mainDashboard.component.html',
+    styleUrls: ['./mainDashboard.component.less'],
 })
-export class AppComponent { 
+export class MainDashboard { 
 
     private _testValueFunc(info: InfoCard) : string{
         var coef = info.value / info.planValue;

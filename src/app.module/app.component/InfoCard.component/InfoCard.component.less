@@ -1,21 +1,54 @@
 @import "../../commonStyle.less";
 
 .info-card-container{
-    width: 260px;
-    height: 270px;  
     align-items: center;
+    border-style: solid;
+    border-color: transparent;
     display: inline-block;
-    .shadow;
+    border-width: 1px;
+    width: 260px; 
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.5s; 
+
+    &:hover{
+        transform: scale(1.1,1.1);
+        border-radius: 3px;
+        z-index: 1;
+        position: relative;
+        .shadow;
+    }    
+
+    //----building icons-------
+    &.gres{
+        .header .icon{
+            .gres-icon(@secondColor);
+        }
+    }
+
+    &.tec{
+        .header .icon{
+            .tec-icon(@secondColor);
+        }
+    }
+
+    &.tes{
+        .header .icon{
+            .tes-icon(@secondColor);
+        }
+    }
+    //---------------
 
     .header{
         padding: 10px 20px;
         display: flex;
+        align-items: center;
         height: 50px;
-        background-color: @backgroundColor;
+        background-color: @secondBackgroundColor;
 
-        .logo{
-            width: 70px;
-            height: 100%;
+        .icon{
+            width: 30px;
+            height: 30px;
         }
 
         .tittle{
@@ -28,15 +61,90 @@
 
     .body{
         padding: 20px;
+        background-color: @thirdBackgroundColor;
         .plan-value, .prev-value{
-            text-align: right;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .icon, .indicator-icon{
+                width: 15px;
+                height: 15px;
+                margin-left: 5px;
+            }
+
+            .indicator-icon{
+                &.less{
+                    .less-value-icon(@negativeColor);
+                }
+
+                &.more{
+                    .more-value-icon(@positiveColor);
+                }
+            }
+
+            .value{
+                font-size: 16px;
+            }
         }
 
-        .value{
-            text-align: right;
-            font-weight: 600;
-            font-size: 65px;
+        .plan-value{
+            .icon{
+                .plan-value-icon(@thirdColor);
+            }
+        }
+
+        .prev-value{
+            .icon{
+                .prev-value-icon(@thirdColor);
+            }
+        }
+
+
+        .cur-value{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .value{
+                text-align: right;
+                font-weight: 600;
+                font-size: 65px;
+                line-height: 55px;
+            }
+
+            .icon{
+                width: 60px;
+                height: 60px;
+
+                &.mvt{
+                    &.good{
+                        .energy-value-icon(@positiveColor);
+                    }
+
+                    &.bad{
+                        .energy-value-icon(@negativeColor);
+                    }
+
+                    &.fine{
+                        .energy-value-icon(@neutralColor);
+                    }
+                }
+
+                &.tm3, &.tt{
+                    &.good{
+                        .fuel-value-icon(@positiveColor);
+                    }
+
+                    &.bad{
+                        .fuel-value-icon(@negativeColor);
+                    }
+
+                    &.fine{
+                        .fuel-value-icon(@neutralColor);
+                    }
+                }
+            }
+
         }
 
         .unit{
@@ -47,5 +155,4 @@
 
 
     }
-
 }

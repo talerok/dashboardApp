@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.001 17">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #c7c7c7;
+      }
+    </style>
+  </defs>
+  <path id="Plan_Icon" data-name="Plan Icon" class="cls-1" d="M14.326-.544h-7V3.594h-5V7.649h-5v8.807H13.858a.475.475,0,0,0,.469-.482V-.544ZM-.675,9.7h3v4.7h-3Zm5-4.262h3L7.305,14.4H4.325Zm8-4.23V14.4h-3V1.212Z" transform="translate(2.675 0.544)"/>
+</svg>

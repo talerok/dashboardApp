@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { InfoCard } from "../../../models/InfoCard"
 
 
@@ -11,16 +11,29 @@ export class InfoCardComponent {
     @Input() public Data : InfoCard = null;
 
     public GetValueCompareClass(value : number) : string {
-        if(this.Data.value > value)
+        if(this.Data.value < value)
             return "less";
-        else if(this.Data.value < value)
+        else if(this.Data.value > value)
             return "more";
         else
-            return "equal";
+            return "fine";
     }
 
     public GetValueClass() : string{
-        return "";
+        return this.Data.valueStateFunc(this.Data);
+    }
+
+    public GetUnitName() : string{
+        switch(this.Data.unit){
+            case "mvt":
+                return "мВт";
+            case "tm3":
+                return "тыс.м<sup>3</sup>";
+            case "tt":
+                return "тыс. тонн"
+            default:
+                return "неизвестное значение";
+        }
     }
 
 }
