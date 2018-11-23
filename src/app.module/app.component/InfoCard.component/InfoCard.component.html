@@ -1,23 +1,23 @@
-<div class='info-card-container {{Data.type}}'>	
+<div class='info-card-container'>	
     <div class='header'> 
-        <div class='icon'></div>
+        <div class='icon-{{Data.type}} icon'></div>
         <div class='tittle'>{{Data.name}}</div>
     </div>
     <div class="body">
         <div class='plan-value'>
             <div class='value'>{{Data.planValue}}</div>
-            <div class='indicator-icon {{GetValueCompareClass(Data.planValue)}}'></div>
-            <div class='icon'></div>          
+            <div class='indicator-icon icon-{{GetValueCompareClass(Data.planValue)}} icon'></div>
+            <div class='icon-plan-value icon'></div>          
         </div>
         <div class='prev-value'>
             <div class='value'>{{Data.prevValue}}</div>
-            <div class='indicator-icon {{GetValueCompareClass(Data.prevValue)}}'></div>
-            <div class='icon'></div>           
+            <div class='indicator-icon icon-{{GetValueCompareClass(Data.prevValue)}} icon'></div>
+            <div class='icon-prev-value icon'></div>           
         </div>
         <div class='cur-value'>
-            <div class='icon {{Data.unit}} {{GetValueClass()}}'></div>
+            <div class='icon-{{Data.unit.Identificator}}-{{GetValueClass()}} icon'></div>
             <div class='value'>{{Data.value}}</div>
         </div>
-        <div class='unit' [innerHTML]='GetUnitName()'></div>
+        <div class='unit' [innerHTML]='Data.unit.Name'></div>
     </div> 
 </div>

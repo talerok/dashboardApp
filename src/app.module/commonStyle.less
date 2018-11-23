@@ -91,3 +91,72 @@
     @colorValue: e(%("%A", @color));
     background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2050%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cstyle%3E%0A%20%20%20%20%20%20.cls-1%20%7B%0A%20%20%20%20%20%20%20%20fill%3A%20@{colorValue}%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C%2Fstyle%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cpath%20id%3D%22Fuel%5fIcon%5fYellow%5f%22%20data-name%3D%22Fuel%20Icon%20%28Yellow%29%22%20class%3D%22cls-1%22%20d%3D%22M20-3575v-8.521h-.022L7.642-3596H0v-4H48v4H40.362L28.04-3583.521H28V-3575Zm10.341-29a7.162%2C7.162%2C0%2C0%2C0%2C.582-2.787A6.949%2C6.949%2C0%2C0%2C0%2C24-3613.756a6.949%2C6.949%2C0%2C0%2C0-6.923%2C6.969%2C7.177%2C7.177%2C0%2C0%2C0%2C.581%2C2.787H6v-6.969H9.35a14.712%2C14.712%2C0%2C0%2C1%2C1.357-3.29l-2.382-2.4%2C5.871-5.91%2C2.382%2C2.4a14.535%2C14.535%2C0%2C0%2C1%2C3.268-1.365V-3625h8.308v3.466a14.511%2C14.511%2C0%2C0%2C1%2C3.267%2C1.365l2.382-2.4%2C5.871%2C5.91-2.381%2C2.4a14.709%2C14.709%2C0%2C0%2C1%2C1.356%2C3.29H42V-3604Z%22%20transform%3D%22translate%280%203625%29%22%2F%3E%0A%3C%2Fsvg%3E%0A%0A');
 }
+
+//----------------------------------------
+.icon{
+    &-gres{
+        .gres-icon(@secondColor);
+    }
+    
+    &-tec{
+        .tec-icon(@secondColor);
+    }
+    
+    &-tes{
+        .tes-icon(@secondColor);
+    }
+
+    &-less{
+        .less-value-icon(@negativeColor);
+    }
+
+    &-more{
+        .more-value-icon(@positiveColor);
+    }
+
+    &-plan-value{
+        .plan-value-icon(@thirdColor);
+    }
+
+    &-prev-value{
+        .prev-value-icon(@thirdColor);
+    }
+
+    &-tm3, &-tt{
+        &-good{
+            .fuel-value-icon(@positiveColor);
+        }
+
+        &-bad{
+            .fuel-value-icon(@negativeColor);
+        }
+
+        &-fine{
+            .fuel-value-icon(@neutralColor);
+        }
+
+        &-neutral{
+            .fuel-value-icon(@thirdColor);
+        }
+
+    }
+
+    &-mvt{
+        &-good{
+            .energy-value-icon(@positiveColor);
+        }
+
+        &-bad{
+            .energy-value-icon(@negativeColor);
+        }
+
+        &-fine{
+            .energy-value-icon(@neutralColor);
+        }
+
+        &-neutral{
+            .energy-value-icon(@thirdColor);
+        }
+    }
+
+}

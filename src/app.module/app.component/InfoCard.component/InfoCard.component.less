@@ -19,26 +19,6 @@
         .shadow;
     }    
 
-    //----building icons-------
-    &.gres{
-        .header .icon{
-            .gres-icon(@secondColor);
-        }
-    }
-
-    &.tec{
-        .header .icon{
-            .tec-icon(@secondColor);
-        }
-    }
-
-    &.tes{
-        .header .icon{
-            .tes-icon(@secondColor);
-        }
-    }
-    //---------------
-
     .header{
         padding: 10px 20px;
         display: flex;
@@ -73,33 +53,10 @@
                 margin-left: 5px;
             }
 
-            .indicator-icon{
-                &.less{
-                    .less-value-icon(@negativeColor);
-                }
-
-                &.more{
-                    .more-value-icon(@positiveColor);
-                }
-            }
-
             .value{
                 font-size: 16px;
             }
         }
-
-        .plan-value{
-            .icon{
-                .plan-value-icon(@thirdColor);
-            }
-        }
-
-        .prev-value{
-            .icon{
-                .prev-value-icon(@thirdColor);
-            }
-        }
-
 
         .cur-value{
             display: flex;
@@ -115,34 +72,6 @@
             .icon{
                 width: 60px;
                 height: 60px;
-
-                &.mvt{
-                    &.good{
-                        .energy-value-icon(@positiveColor);
-                    }
-
-                    &.bad{
-                        .energy-value-icon(@negativeColor);
-                    }
-
-                    &.fine{
-                        .energy-value-icon(@neutralColor);
-                    }
-                }
-
-                &.tm3, &.tt{
-                    &.good{
-                        .fuel-value-icon(@positiveColor);
-                    }
-
-                    &.bad{
-                        .fuel-value-icon(@negativeColor);
-                    }
-
-                    &.fine{
-                        .fuel-value-icon(@neutralColor);
-                    }
-                }
             }
 
         }

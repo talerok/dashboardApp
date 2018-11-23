@@ -1,4 +1,11 @@
 <div class='main-dashboard'>	
+	<div class='panel'>
+			<select class='dashboard-select icon-{{CurIndicator.Unit.Identificator}}-neutral' [(ngModel)]="CurIndicator" (ngModelChange)="RefreshData()">
+				<option *ngFor="let indicator of Indicators" [ngValue]="indicator">
+						{{ indicator.Name }}
+				</option>
+			</select>
+	</div>
 	<div class='cards'>
 		<info-card *ngFor='let card of Cards' [Data]="card" (click)='CardClick(card)'></info-card>
 	</div>

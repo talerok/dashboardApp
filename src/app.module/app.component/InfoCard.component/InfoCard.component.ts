@@ -23,17 +23,4 @@ export class InfoCardComponent {
         return this.Data.valueStateFunc(this.Data);
     }
 
-    public GetUnitName() : string{
-        switch(this.Data.unit){
-            case "mvt":
-                return "мВт";
-            case "tm3":
-                return "тыс.м<sup>3</sup>";
-            case "tt":
-                return "тыс. тонн"
-            default:
-                return "неизвестное значение";
-        }
-    }
-
 }
