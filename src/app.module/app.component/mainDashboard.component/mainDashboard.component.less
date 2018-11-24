@@ -12,13 +12,44 @@
 
     .indicator-select{
         width: 100%;
-        padding-right: 30px;
+        padding: 0px 30px;
     }
 
     .date-time-picker{
         width: 350px;
     }
 
+}
+
+.menu{
+    display: flex;
+    .input-style();
+    .link{
+        width: 33px;
+        height: 33px;
+        cursor: pointer;
+        background-size: 16px !important;
+
+        &:hover, .active{
+            background-color: @secondColor;       
+        }
+
+        &.grid{
+            .grid-icon(@mainFontColor);  
+            &:hover, .active {
+                .grid-icon(@secondFontColor);  
+            }
+
+        }
+
+        &.map{
+            .map-icon(@mainFontColor);
+            &:hover, .active {
+                .map-icon(@secondFontColor);
+            }
+        }
+
+    }
 }
 
 .summary{

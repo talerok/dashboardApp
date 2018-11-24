@@ -1,3 +1,30 @@
 <div class='date-time-picker'>
-    <input-wrapper [Icon]='Icon' [Description]='Date' [Additional]='Hour' [HasAttachments]='true'> </input-wrapper>
+    <div class='current-datetime' (click)='_isOpen=!_isOpen'>
+        <input-wrapper [Icon]='"icon-calendar"' [Description]='_getDate(Value)' [Additional]='_getTime(Value)' [HasAttachments]='true'> </input-wrapper>
+    </div>
+    <div class='body' [hidden]='!_isOpen'>
+        <mat-calendar [(selected)]='Date'></mat-calendar>
+        <div class='time-picker'>
+            <div class='counter'>
+                <button class='increase' (click)='_increaseHour()'></button>
+                <div class='value'>
+                        {{_getHours(Date)}}
+                </div>
+                <button class='decrease' (click)='_decreaseHour()'></button>
+            </div>
+            <div class='separator'>
+                :
+            </div>
+            <div class="counter">
+                <button class='increase' (click)='_increaseMinute()'></button>
+                <div class='value'>
+                    {{_getMinutes(Date)}}
+                </div>
+                <button class='decrease' (click)='_decreaseMinute()'></button>
+            </div>
+        </div>
+        <div class='save-panel'>
+            <button class='save' (click)='_save()'>Применить</button>
+        </div>
+    </div>
 </div>

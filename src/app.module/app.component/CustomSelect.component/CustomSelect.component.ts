@@ -40,7 +40,6 @@ export class CustomSelect {
 
     ngOnChanges(changes: SimpleChanges) {
         this._setSelectedOption();
-        console.log(this.Value);
     }
 
     @HostListener('document:click', ['$event.target'])

@@ -2,4 +2,75 @@
 
 .date-time-picker{
     .input-style;
+    position: relative;
+    .body{
+        width: 100%;
+        margin-top: 2px;
+        z-index: 2;
+        .input-style;
+        position: absolute;
+
+        .time-picker{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+
+            .separator{
+                font-size: 30px;
+                user-select: none;
+                margin: 0px 20px;
+            }
+
+            .counter{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .increase, .decrease {
+                    background-color: transparent;
+                    border: 0;
+                    height: 20px;
+                    width: 20px;
+                    outline: none;
+                    cursor: pointer;
+                }
+
+                .value{
+                    user-select: none;
+                    font-size: 20px;
+                }
+
+                .increase{
+                    .arrow-up-icon(@mainFontColor);
+                }
+
+                .decrease{
+                    .arrow-down-icon(@mainFontColor);
+                }
+
+
+            }
+        }
+
+        .save-panel{
+            position: relative;
+            height: 40px;
+
+            .save{
+                border-radius: 3px;
+                border: 0;
+                background-color: @mainColor;
+                color: @secondFontColor;
+                height: 30px;
+                font-size: 16px;
+                position: absolute;
+                right: 10px;
+                cursor: pointer;
+            }
+        }
+        
+
+    }
+
 }
