@@ -1,15 +1,9 @@
 
 <div class='custom-select' (click)='_selectClick()'>
-	<div class='option'>
-		<div class='icon {{_selectedOption.Icon}}'></div>
-		<div class='selected-elem'>{{_selectedOption.Description}}</div>
-		<div class='addition'>{{_selectedOption.Additional}}</div>
-	</div>
+	<input-wrapper [Icon]='_selectedOption.Icon' [Description]='_selectedOption.Description' [Additional]='_selectedOption.Additional' [HasAttachments]='true'> </input-wrapper>
 	<div class='options' [hidden]='!_isOpen'>
 		<div *ngFor='let option of Options' (click)='_optionSelected($event, option)' class="option {{option === _selectedOption ? 'selected' : ''}}">
-			<div class='icon {{option.Icon}}'></div>
-			<div class='selected-elem'>{{option.Description}}</div>
-			<div class='addition'>{{option.Additional}}</div>
+				<input-wrapper [Icon]='option.Icon' [Description]='option.Description' [Additional]='option.Additional' [HasAttachments]='false'> </input-wrapper>
 		</div>
 	</div>
 </div>

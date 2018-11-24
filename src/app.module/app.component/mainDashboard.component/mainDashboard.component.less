@@ -8,6 +8,17 @@
 
 .panel{
     margin-bottom: 20px;
+    display: flex;
+
+    .indicator-select{
+        width: 100%;
+        padding-right: 30px;
+    }
+
+    .date-time-picker{
+        width: 350px;
+    }
+
 }
 
 .summary{
@@ -35,66 +46,6 @@
     .description{
         font-size: 18px;
         margin-right: 20px;
-    }
-
-}
-
-.custom-select{
-    position: relative;
-    .shadow;
-    border-radius: 3px;
-    width: 100%;
-    cursor: pointer;
-    user-select: none;
-    .open-icon(@mainFontColor);
-    background-position: calc(100% - 15px) center;
-    background-size: 15px; 
-    background-color: @thirdBackgroundColor;
-
-    .option{
-        height: 33px;
-        display: flex;
-        align-items: center;
-        .selected-elem, .addition{
-            font-size: 20px;
-        }
-
-        .addition{
-            display: inline-block;
-            color: @thirdColor;
-            margin-right: 45px;
-            white-space: nowrap;
-        }
-
-        .selected-elem{
-            width: 100%;
-            margin-left: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            margin-right: 10px;
-        }
-
-        .icon{
-            width: 20px;
-            height: 20px;
-            margin-left: 10px;
-        }
-    }
-    .options{
-        .shadow;
-        position: absolute;
-        left: 0;
-        top: 35px;
-        width: 100%;
-        background-color: white;
-        z-index: 2;
-
-        .option{
-            &:hover{
-                background-color: @backgroundColor;
-            }
-        }
-
     }
 
 }

@@ -1,6 +1,11 @@
 <div class='main-dashboard'>	
 	<div class='panel'>
+		<div class='indicator-select'>
 			<custom-select [(Value)]='CurIndicator' (ValueChange)='RefreshData()' [Options]='IndicatorOptions'></custom-select>
+		</div>
+		<div class='date-time-picker'>
+			<datetime-picker></datetime-picker>	
+		</div>
 	</div>
 	<div class='cards'>
 		<info-card *ngFor='let card of Cards' [Data]="card" (click)='CardClick(card)'></info-card>
