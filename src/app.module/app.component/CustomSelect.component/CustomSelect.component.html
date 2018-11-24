@@ -1,0 +1,17 @@
+
+<div class='custom-select' (click)='_selectClick()'>
+	<div class='option'>
+		<div class='icon {{_selectedOption.Icon}}'></div>
+		<div class='selected-elem'>{{_selectedOption.Description}}</div>
+		<div class='addition'>{{_selectedOption.Additional}}</div>
+	</div>
+	<div class='options' [hidden]='!_isOpen'>
+		<div *ngFor='let option of Options' (click)='_optionSelected($event, option)' class="option {{option === _selectedOption ? 'selected' : ''}}">
+			<div class='icon {{option.Icon}}'></div>
+			<div class='selected-elem'>{{option.Description}}</div>
+			<div class='addition'>{{option.Additional}}</div>
+		</div>
+	</div>
+</div>
+
+	

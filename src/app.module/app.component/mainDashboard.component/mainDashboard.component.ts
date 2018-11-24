@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InfoCard } from "../../../models/InfoCard"
 import { Unit } from '../../../models/unit';
 import { Indicator } from '../../../models/Indicator';
+import { CustomSelectOption } from '../../../models/CustomSelectOption'
 
 @Component({
     selector: 'main-dashboard',
@@ -32,9 +33,31 @@ export class MainDashboard {
 
     public CurIndicator : Indicator = this.Indicators[0];
 
+    private _generateOptions(Indicators : Indicator[]) : CustomSelectOption[]{
+        return Indicators.map((indicator) => {
+            return new CustomSelectOption("icon-" + indicator.Unit.Identificator + "-neutral", indicator.Name, indicator.Unit.Name, indicator);
+        })
+    }
+
+    public IndicatorOptions : CustomSelectOption[] = this._generateOptions(this.Indicators);
+
     public Cards : InfoCard[] = [
         
     ];
+
+    public GetCountDescription() : string{
+        let stringCount : string = this.Cards.length.toString();
+        if(stringCount[stringCount.length - 1] === '1')
+            return "Электростанция"
+        else
+            return "Электростанций" 
+    }
+
+    public GetSummValue() : number{
+        return this.Cards.reduce(function(sum : number, current : InfoCard) {
+            return sum + current.value;
+          }, 0);  
+    }
 
     public RefreshData() : void{
         this.Cards = [

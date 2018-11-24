@@ -1,44 +1,5 @@
 @import "../../commonStyle.less";
 
-.cards{
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: center;
-}
-
-.panel{
-    margin-bottom: 20px;
-}
-
-.summary{
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .description, .value, .unit{
-        display: inline-block;
-        color: @thirdColor;
-    }
-
-    .value{
-        font-size: 30px;
-        font-weight: 600;
-        margin-right: 10px;
-    }
-
-    .unit{
-        font-size: 25px;
-        font-weight: 600;
-    }
-
-    .description{
-        font-size: 18px;
-        margin-right: 20px;
-    }
-
-}
-
 .custom-select{
     position: relative;
     .shadow;
@@ -90,7 +51,7 @@
         z-index: 2;
 
         .option{
-            &:hover{
+            &:hover, &.selected {
                 background-color: @backgroundColor;
             }
         }

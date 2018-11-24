@@ -1,12 +1,19 @@
 <div class='main-dashboard'>	
 	<div class='panel'>
-			<select class='dashboard-select icon-{{CurIndicator.Unit.Identificator}}-neutral' [(ngModel)]="CurIndicator" (ngModelChange)="RefreshData()">
-				<option *ngFor="let indicator of Indicators" [ngValue]="indicator">
-						{{ indicator.Name }}
-				</option>
-			</select>
+			<custom-select [(Value)]='CurIndicator' (ValueChange)='RefreshData()' [Options]='IndicatorOptions'></custom-select>
 	</div>
 	<div class='cards'>
 		<info-card *ngFor='let card of Cards' [Data]="card" (click)='CardClick(card)'></info-card>
+	</div>
+	<div class='summary'> 
+		<div class='count'>
+			<div class='value'>{{Cards.length}}</div> 
+			<div class='unit'>{{GetCountDescription()}}</div> 
+		</div>
+		<div class='summ'>
+			<div class='description'>Сумарное количество ({{CurIndicator.Name}}):</div> 
+			<div class='value'>{{GetSummValue()}}</div> 
+			<div class='unit'>{{CurIndicator.Unit.Name}}</div> 
+		</div>
 	</div>
 </div>
