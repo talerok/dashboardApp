@@ -1,7 +1,6 @@
 import { DataService } from "./Abstract/DataService";
 import { Indicator } from "../models/Indicator";
 import { InfoCard } from "../models/InfoCard";
-import { Unit } from "../models/unit";
 import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
@@ -30,8 +29,8 @@ export class FakeDateService implements DataService {
         return new Promise<Indicator[]>((resolve, reject) => {
             setTimeout(() => {
                 resolve([
-                    new Indicator("Текущая мощность",  new Unit("мВт","mvt")),
-                    new Indicator("Текущий расход топлива",  new Unit("тыс. тонн","tt"))
+                    new Indicator("Текущая мощность", "мВт", "energy"),
+                    new Indicator("Отпущено тепла с коллекторов",  "тыс. Гкал", "fuel")
                 ]);
             }, this._timeout);
         }).then((x) => {
@@ -62,27 +61,27 @@ export class FakeDateService implements DataService {
             setTimeout(() => {
                 resolve(
                 [
-                    new InfoCard("Верхнетагильская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Гусиноозерская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Дхубгинская ТЭС","tes",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Ивановские ПГУ","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Ириклинская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Калининградская ТЭЦ-2","tec",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Каширская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Кастромская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Маяковская ТЭС","tes",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Нижневартовкая ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Пермская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Перегольская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Печорская ТЭС","tes",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Северо-Западная ТЭЦ","tec",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Сочинская ТЭС","tes",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Талаховская ТЭС","tes",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Уренгойская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Харанорская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Черепетская ГРЕС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Южноуральская ГРЭС","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
-                    new InfoCard("Южноуральская ГРЭС-2","gres",indicator.Unit,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc)
+                    new InfoCard("Верхнетагильская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Гусиноозерская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Дхубгинская ТЭС","tes",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Ивановские ПГУ","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Ириклинская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Калининградская ТЭЦ-2","tec",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Каширская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Кастромская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Маяковская ТЭС","tes",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Нижневартовкая ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Пермская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Перегольская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Печорская ТЭС","tes",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Северо-Западная ТЭЦ","tec",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Сочинская ТЭС","tes",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Талаховская ТЭС","tes",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Уренгойская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Харанорская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Черепетская ГРЕС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Южноуральская ГРЭС","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc),
+                    new InfoCard("Южноуральская ГРЭС-2","gres",indicator,this._randomValue(),this._randomValue(),this._randomValue(), this._fakeValueFunc)
                 ]);
             }, this._timeout);
         }).then((x) => {

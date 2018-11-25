@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { InfoCard } from "../../../models/InfoCard"
-import { Unit } from '../../../models/unit';
 import { Indicator } from '../../../models/Indicator';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { DataService } from '../../../services/Abstract/DataService';
@@ -24,7 +23,7 @@ export class MainDashboard {
 
     private _generateOptions(Indicators : Indicator[]) : CustomSelectOption[]{
         return Indicators.map((indicator) => {
-            return new CustomSelectOption("icon-" + indicator.Unit.Identificator + "-neutral", indicator.Name, indicator.Unit.Name, indicator);
+            return new CustomSelectOption("icon-" + indicator.Type + "-neutral", indicator.Name, indicator.Unit, indicator);
         })
     }
 

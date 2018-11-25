@@ -68,10 +68,10 @@ export class DateTimePicker {
         this.Date = this.Value;
     }
 
-    @HostListener('document:click', ['$event.target'])
+    @HostListener('document:mousedown', ['$event.target'])
     public onClick(targetElement : any) {
         if(this._isOpen){
-            const clickedInside = this._elementRef.nativeElement.contains(targetElement);
+            const clickedInside = this._elementRef.nativeElement.contains(targetElement.parentNode);
             if (!clickedInside) {
                 this._isOpen = false;
             }

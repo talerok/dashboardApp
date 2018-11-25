@@ -1,8 +1,7 @@
-import { Unit } from "./unit";
-
 export class Indicator{
     constructor(
         readonly Name: string,
-        readonly Unit: Unit
+        readonly Unit: string,
+        readonly Type: string
     ) {}
 }

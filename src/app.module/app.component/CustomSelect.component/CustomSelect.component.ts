@@ -42,7 +42,7 @@ export class CustomSelect {
         this._setSelectedOption();
     }
 
-    @HostListener('document:click', ['$event.target'])
+    @HostListener('document:mousedown', ['$event.target'])
     public onClick(targetElement : any) {
         if(this._isOpen){
             const clickedInside = this._elementRef.nativeElement.contains(targetElement);
