@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { InfoCard } from "../../models/InfoCard"
 import { DataService } from '../../services/Abstract/DataService';
 import { FakeDateService } from '../../services/FakeDataService';
@@ -13,4 +13,11 @@ import { FakeDateService } from '../../services/FakeDataService';
 })
 export class AppComponent { 
 
+    private _spinnerActive : boolean = false;
+
+    constructor(private _dataSerivce : DataService){
+        _dataSerivce.LoadEvent.subscribe((x : boolean) => {
+            this._spinnerActive = x;
+        });
+    }
 }
