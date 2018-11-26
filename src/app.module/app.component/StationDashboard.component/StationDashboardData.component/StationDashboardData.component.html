@@ -1,0 +1,13 @@
+<div class='station-dashboard-data'>
+	<div class='data-panel'>
+		<div class='name'>{{!CurBlock ? "Электростанция" : CurBlock.Name}}</div>
+		<div class='indicators'>
+			<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
+		</div>
+	</div>
+	<div class='cards'>
+		<div class='card' *ngFor='let card of _cards'>
+			<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+		</div>
+	</div>
+</div>

@@ -11,16 +11,12 @@ export class InfoCardComponent {
     @Input() public Data : InfoCard = null;
 
     public GetValueCompareClass(value : number) : string {
-        if(this.Data.value < value)
+        if(this.Data.indicatorValue.Value < value)
             return "less";
-        else if(this.Data.value > value)
+        else if(this.Data.indicatorValue.Value > value)
             return "more";
         else
             return "fine";
-    }
-
-    public GetValueClass() : string{
-        return this.Data.valueStateFunc(this.Data);
     }
 
 }

@@ -43,7 +43,7 @@ export class MainDashboard {
 
     public GetSummValue() : number{
         return this.Cards.reduce(function(sum : number, current : InfoCard) {
-            return sum + current.value;
+            return sum + current.indicatorValue.Value;
           }, 0);  
     }
 
@@ -51,7 +51,9 @@ export class MainDashboard {
 
 
     public async RefreshData(){
-        this.Cards = await this._dataService.GetAllStationsData(this.CurIndicator, this.CurDate);
+        this.Cards = (await this._dataService.GetAllStationsData(this.CurIndicator, this.CurDate)).map((x) => {
+            return new InfoCard(x.Object.Name,x.Object.Type,this.CurIndicator, x);
+        });
     }
 
     constructor(private _dataService : DataService){

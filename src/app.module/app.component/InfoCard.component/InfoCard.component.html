@@ -1,22 +1,22 @@
 <div class='info-card-container'>	
     <div class='header'> 
-        <div class='icon-{{Data.type}} icon'></div>
-        <div class='tittle'>{{Data.name}}</div>
+        <div *ngIf='Data.type' class='icon-{{Data.type}} icon'></div>
+        <div class='{{Data.type ? "tittle" : ""}}'>{{Data.name}}</div>
     </div>
     <div class="body">
         <div class='plan-value'>
-            <div class='value'>{{Data.planValue}}</div>
-            <div class='indicator-icon icon-{{GetValueCompareClass(Data.planValue)}} icon'></div>
+            <div class='value'>{{Data.indicatorValue.Plan}}</div>
+            <div class='indicator-icon icon-{{GetValueCompareClass(Data.indicatorValue.Plan)}} icon'></div>
             <div class='icon-plan-value icon'></div>          
         </div>
         <div class='prev-value'>
-            <div class='value'>{{Data.prevValue}}</div>
-            <div class='indicator-icon icon-{{GetValueCompareClass(Data.prevValue)}} icon'></div>
+            <div class='value'>{{Data.indicatorValue.Prev}}</div>
+            <div class='indicator-icon icon-{{GetValueCompareClass(Data.indicatorValue.Prev)}} icon'></div>
             <div class='icon-prev-value icon'></div>           
         </div>
         <div class='cur-value'>
-            <div class='icon-{{Data.indicator.Type}}-{{GetValueClass()}} icon'></div>
-            <div class='value'>{{Data.value}}</div>
+            <div class='icon-{{Data.indicator.Type}}-{{Data.indicatorValue.Status}} icon'></div>
+            <div class='value'>{{Data.indicatorValue.Value}}</div>
         </div>
         <div class='unit' [innerHTML]='Data.indicator.Unit'></div>
     </div> 

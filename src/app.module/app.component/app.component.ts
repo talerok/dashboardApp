@@ -17,7 +17,9 @@ export class AppComponent {
 
     constructor(private _dataSerivce : DataService){
         _dataSerivce.LoadEvent.subscribe((x : boolean) => {
-            this._spinnerActive = x;
+            setTimeout(() => {
+                this._spinnerActive = x;
+            }, 0);
         });
     }
 }
