@@ -12,7 +12,9 @@
 		</div>
 	</div>
 	<div class='cards'>
-		<info-card *ngFor='let card of Cards' [Data]="card" (click)='CardClick(card)'></info-card>
+		<div class='card' *ngFor='let card of Cards'>
+			<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+		</div>
 	</div>
 	<div class='summary'> 
 		<div class='count'>

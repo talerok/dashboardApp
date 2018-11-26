@@ -93,7 +93,6 @@ export class FakeDateService implements DataService {
     }
 
     public async GetAllStationIndicators() :  Promise<Indicator[]>{
-        this._initLoading();
         return this._timeOutPromise<Indicator[]>(this._fakeIndicators, this._timeout);
     } 
 

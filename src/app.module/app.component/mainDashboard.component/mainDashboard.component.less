@@ -3,7 +3,61 @@
 .cards{
     flex-wrap: wrap;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+
+    .card{
+        width: 14.285%;
+        flex: none;
+    }
+
+}
+
+@media (max-width: 1600px) {
+    .cards{
+        .card{
+            width: 16.66%;
+        }
+    }
+}
+
+@media (max-width: 1400px) {
+    .cards{
+        .card{
+            width: 20%;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .cards{
+        .card{
+            width: 25%;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .cards{
+        .card{
+            width: 33.33%;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .cards{
+        .card{
+            width: 50%;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .cards{
+        .card{
+            width: 100%;
+        }
+    }
 }
 
 .panel{

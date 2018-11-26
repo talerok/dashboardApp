@@ -28,11 +28,21 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         .card{
-            width: 360px;
+            width: 25%;
             flex: none;
             box-shadow: 1px 0 0 0 @thirdColor, 0 1px 0 0 @thirdColor, 2px 1px 0px 0 @thirdColor, 1px 0 0px 0 @thirdColor inset, 0 1px 0px 0 @thirdColor inset;
         }
 
     }
 
+}
+
+@media (max-width: 1400px) {
+    .station-dashboard-data{
+        .cards{
+            .card{
+                width: 50%;
+            }
+        }
+    }
 }
