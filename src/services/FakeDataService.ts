@@ -5,6 +5,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Station, StationBlock, BaseStationObject } from "../models/Station";
 import { IndicatorValue } from "../models/IndicatorValue";
 import { Status } from "../models/Status";
+import { Period } from "../models/Period";
+import { MultiIndicatorValue } from "../models/MultiIndicatorValue";
 
 @Injectable()
 export class FakeDateService implements DataService {
@@ -98,7 +100,7 @@ export class FakeDateService implements DataService {
 
     private _randomValue() : number{
         let res = Math.floor(Math.random() * 1300);
-        return res > 300 ? res : 0;
+        return res;
     }
 
 
@@ -142,5 +144,27 @@ export class FakeDateService implements DataService {
         return this._timeOutPromise<Station[]>(this._fakeStations, this._timeout);
     }
 
+    private _generateFakeMultiIndicatorValue(period: Period): MultiIndicatorValue {
+        let count = period === Period.Day ? 24 : (period === Period.Month ? 30 : 12);
+
+        let labels: string[] = [];
+        let plan: number[] = [];
+        let prev: number[] = [];
+        let value: number[] = [];
+
+        for(let i = 0; i < count; i++){
+            labels.push(i.toString());
+            plan.push(this._randomValue());
+            prev.push(this._randomValue());
+            value.push(this._randomValue());
+        }
+        return new MultiIndicatorValue(plan,prev,value,labels);
+    }
+
+    public async GetDataFromPeriod(object: BaseStationObject, indicator: Indicator, date: Date, period: Period) : Promise<MultiIndicatorValue>{
+        return this._timeOutPromise<MultiIndicatorValue>(
+        this._generateFakeMultiIndicatorValue(period)
+        , this._timeout)
+    }
 
 }

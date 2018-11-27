@@ -21,10 +21,12 @@
 		"@angular/animations": "~6.0.0",
 		"core-js": "2.5.7",
 		"rxjs": "6.2.2",
-		"zone.js": "0.8.26"
+		"zone.js": "0.8.26",
+		"chart.js": "*"
 	},
 	"devDependencies": {
 		"@types/node": "10.5.2",
+		"@types/chart.js": "*",
 		"typescript": "~3.0.0",
 		"webpack": "~4.0.0",
 		"webpack-cli": "3.1.0",

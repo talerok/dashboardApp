@@ -9,6 +9,7 @@ import { MainDashboard  }   from './app.component/mainDashboard.component/mainDa
 import { StationDashboard  }   from './app.component/StationDashboard.component/StationDashboard.component';
 import { StationDashboardData } from './app.component/StationDashboard.component/StationDashboardData.component/StationDashboardData.component'
 
+import { ChartComponent } from './app.component/Chart.component/Chart.component'
 import { InputWrapper } from './app.component/InputWrapperComponent/InputWrapperComponent'
 import { CustomSelect } from './app.component/CustomSelect.component/CustomSelect.component'
 import { DateTimePicker } from './app.component/DateTimePicker.component/DateTimePicker.component'
@@ -17,7 +18,7 @@ import { MaterialModule } from './material.module'
 
 @NgModule({
     imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule],
-    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker ],
+    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, ChartComponent ],
     bootstrap:    [ AppComponent ],
     providers: [
         {provide: LOCALE_ID, useValue: 'ru-RU'},

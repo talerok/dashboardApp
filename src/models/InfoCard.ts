@@ -6,6 +6,9 @@ interface IValueState{
 }
 
 export class InfoCard{
+
+    public Active: boolean = false;
+
     constructor(
         readonly name: string,
         readonly type: string,

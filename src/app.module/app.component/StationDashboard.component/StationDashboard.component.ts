@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { Period } from '../../../models/Period'
-import { Station, StationBlock } from '../../../models/Station'
+import { Station, BaseStationObject, StationBlock } from '../../../models/Station'
 import { DataService } from '../../../services/Abstract/DataService';
 
 @Component({
@@ -23,20 +23,19 @@ export class StationDashboard {
     public StationOptions : CustomSelectOption[] = [];
 
     public CurStation: Station;
-
-    public CurBlock: StationBlock;
+    public CurObject: BaseStationObject;
 
     constructor(private _dataSerice: DataService){
         _dataSerice.GetStations().then((x) => {
                 this.StationOptions = x.map((i) => new CustomSelectOption("icon-" + i.Type + "-neutral", i.Name, "", i));
                 this.CurStation = x[0];
-                this.CurBlock = null;
+                this.CurObject = this.CurStation;
             }
         )
     }
 
-    public async RefreshData(){
-       
+    private _onStationChange(){
+       this.CurObject = this.CurStation;
     }
 
 }

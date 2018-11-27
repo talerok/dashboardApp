@@ -1,13 +1,30 @@
 <div class='station-dashboard-data'>
-	<div class='data-panel'>
-		<div class='name'>{{!CurBlock ? "Электростанция" : CurBlock.Name}}</div>
-		<div class='indicators'>
-			<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
+	<div class='body'>
+		<div class='data-panel'>
+			<div class='name'>{{!CurBlock ? "Электростанция" : CurBlock.Name}}</div>
+			<div class='indicators'>
+				<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
+			</div>
+		</div>
+		<div class='cards'>
+			<div *ngFor='let card of _cards' class='card'>
+				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+			</div>
 		</div>
 	</div>
-	<div class='cards'>
-		<div class='card' *ngFor='let card of _cards'>
-			<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+	<div class='chart-container' *ngIf='_chartData && _curCard'>
+		<div class='chart-header'>
+			<div class='description'>
+				{{_curCard.name}}
+			</div>
+			<div class='period'>
+				<button class='period-button {{_charPeriod == 0 ? "active" : ""}}' (click)='_setChartPeriod(0)'>день</button>
+				<button class='period-button {{_charPeriod == 1 ? "active" : ""}}' (click)='_setChartPeriod(1)'>месяц</button>
+				<button class='period-button {{_charPeriod == 2 ? "active" : ""}}' (click)='_setChartPeriod(2)'>год</button>
+			</div>
+		</div>
+		<div class='chart'>
+			<chart [Value]='_chartData'></chart>
 		</div>
 	</div>
 </div>

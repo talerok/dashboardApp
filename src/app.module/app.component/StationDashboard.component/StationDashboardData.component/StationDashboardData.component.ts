@@ -6,6 +6,7 @@ import { DataService } from '../../../../services/Abstract/DataService';
 import { CustomSelect } from '../../CustomSelect.component/CustomSelect.component';
 import { Indicator } from '../../../../models/Indicator';
 import { InfoCard } from '../../../../models/InfoCard';
+import { MultiIndicatorValue } from '../../../../models/MultiIndicatorValue';
 
 @Component({
     selector: 'station-dashboard-data',
@@ -26,11 +27,27 @@ export class StationDashboardData {
     
     private _cards: InfoCard[] = [];
 
+    private _chartData: MultiIndicatorValue;
+    private _charPeriod: Period;
+    private _curCard: InfoCard;
 
     ngOnChanges(changes: SimpleChanges) {
         this._indicatorOptions = this._generateOptions();
         this._curIndicator = this._indicatorOptions[0].Value;
         this.RefreshData();
+    }
+
+    private async _refreshChart(){
+        this._chartData = await this._dataSerice.GetDataFromPeriod(this.Object, this._curCard.indicator, this.Date, this._charPeriod);
+    }
+
+    public async CardClick(card: InfoCard){
+        if(this._curCard)
+            this._curCard.Active = false;
+
+        this._curCard = card;
+        this._curCard.Active = true;
+        this._refreshChart();
     }
 
     public async RefreshData(){
@@ -39,8 +56,19 @@ export class StationDashboardData {
             .map((x) =>
                 new InfoCard(x.Object.Name, "", x.Object, x)
             );
+        this._charPeriod = Period.Day;
+        this._chartData = null;
+        if(this._curCard)
+            this._curCard.Active = false;
+        this._curCard = null;
     }
 
-    constructor(private _dataSerice: DataService){}
+    private _setChartPeriod(period: Period){
+        this._charPeriod = period;
+        this._refreshChart();
+    }
+
+    constructor(private _dataSerice: DataService){
+    }
 
 }

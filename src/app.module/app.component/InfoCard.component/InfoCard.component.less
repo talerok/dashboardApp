@@ -26,12 +26,20 @@
         height: 50px;
         background-color: @secondBackgroundColor;
 
+        &.active{
+            background-color: @mainColor; 
+
+            .tittle{
+                color: @secondFontColor;
+            }
+        }
+
         .icon{
             width: 30px;
             height: 30px;
         }
 
-        .tittle{
+        .tittle-bold{
             margin-left: 10px;
             .tittle-style;
         }
