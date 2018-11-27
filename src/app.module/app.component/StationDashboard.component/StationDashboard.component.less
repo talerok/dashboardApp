@@ -1,8 +1,11 @@
 @import "../../commonStyle.less";
 
 .station-dashboard{
-    position: relative;
-
+    .summary{
+        font-size: 25px;
+        font-weight: 600;
+        color: @thirdFontColor;
+    }
     .cards{
         flex-wrap: wrap;
         display: flex;
@@ -27,69 +30,81 @@
         }
     }
 
-    .data{
-        top: 52px;
-        left: 420px;
-        position: absolute;
-        min-width: calc(100% - 420px);
-    }
+    .body{
+        display: flex;
 
-    .menu{
-        flex: none;
-        margin-right: 20px;
-        .input-style;
-        width: 400px;
-        overflow: hidden;
-        .menu-header{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            padding: 15px;
-            .icon{
-                width: 30px;
-                height: 30px;
-            }
-
-            .name{
-                .tittle-style;
-                margin-top: 10px;
-            }
-        }
-
-        .menu-body{
-            .menu-elem{
+        .menu{
+            flex: none;
+            margin-right: 20px;
+            .input-style;
+            width: 400px;
+            overflow: hidden;
+            .menu-header{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 position: relative;
-                
-                height: 60px;
-                line-height: 60px;
-                font-size: 21px;
-                padding-left: 30px;
-                user-select: none;
-                cursor: pointer;
-
-                border: 0;
-                border-top: 1px;
-                border-style: solid;
-                border-color: @thirdColor;
-                
-                .consider{
-                    display: none;
-                    .plus-icon(@secondColor);
-                    border: 0;
-                    background-color: transparent;
+                padding: 15px;
+                .icon{
                     width: 30px;
                     height: 30px;
-                    position: absolute;
-                    right: 20px;
-                    top: 15px;
-                    cursor: pointer;
-                    outline: none;
                 }
 
-                &:hover, &.active{
-                    background-color: @mainColor;
-                    color: @secondFontColor;
+                .name{
+                    .tittle-style;
+                    margin-top: 10px;
+                }
+
+                .go-home{
+                    .back-icon(@mainColor);
+                    color: transparent;
+                    position: absolute;
+                    left: 20px;
+                    top: 15px;
+                    width: 20px;
+                    height: 20px;
+                    &:hover{
+                        .back-icon(@secondColor);
+                    }
+
+                }
+
+            }
+
+            .menu-body{
+                .menu-elem{
+                    position: relative;
+                    
+                    height: 60px;
+                    line-height: 60px;
+                    font-size: 21px;
+                    padding-left: 30px;
+                    user-select: none;
+                    cursor: pointer;
+
+                    border: 0;
+                    border-top: 1px;
+                    border-style: solid;
+                    border-color: @thirdColor;
+                    
+                    .consider{
+                        display: none;
+                        .plus-icon(@secondColor);
+                        border: 0;
+                        background-color: transparent;
+                        width: 30px;
+                        height: 30px;
+                        position: absolute;
+                        right: 20px;
+                        top: 15px;
+                        cursor: pointer;
+                        outline: none;
+                    }
+
+                    &:hover, &.active{
+                        background-color: @mainColor;
+                        color: @secondFontColor;
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ import { InfoCard } from "../../../models/InfoCard"
 import { Indicator } from '../../../models/Indicator';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { DataService } from '../../../services/Abstract/DataService';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'main-dashboard',
@@ -14,7 +15,7 @@ export class MainDashboard {
     
 
     public CardClick(info: InfoCard) : void{
-        console.log(info);
+        this._router.navigate(["/station", info.indicatorValue.Object.Id]);
     }
 
     public Indicators: Indicator[] = [];
@@ -56,7 +57,7 @@ export class MainDashboard {
         });
     }
 
-    constructor(private _dataService : DataService){
+    constructor(private _dataService : DataService, private _router: Router){
         this._dataService.GetAllStationIndicators().then((res) =>{
             this.Indicators = res;
             this.CurIndicator = res[0];

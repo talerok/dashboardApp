@@ -1,7 +1,7 @@
 <div class='station-dashboard-data'>
 	<div class='body'>
 		<div class='data-panel'>
-			<div class='name'>{{!CurBlock ? "Электростанция" : CurBlock.Name}}</div>
+			<div class='name'>{{_getName()}}</div>
 			<div class='indicators'>
 				<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
 			</div>

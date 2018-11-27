@@ -68,6 +68,10 @@ export class StationDashboardData {
         this._refreshChart();
     }
 
+    private _getName() : string{
+        return this.Object ? (this.Object instanceof Station ? "Электростанция" : this.Object.Name) : "";
+    }
+
     constructor(private _dataSerice: DataService){
     }
 

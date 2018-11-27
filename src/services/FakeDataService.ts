@@ -13,7 +13,7 @@ export class FakeDateService implements DataService {
 
     public LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    private _timeout : number = 1000;
+    private _timeout : number = 500;
 
     private _loadCount : number = 0;
 
