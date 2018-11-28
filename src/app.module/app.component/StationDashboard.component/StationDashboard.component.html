@@ -1,5 +1,8 @@
 <div class='station-dashboard'>	
 	<div class='panel'>
+		<div class='menu'>
+			<dashboard-menu></dashboard-menu>
+		</div>
 		<div class='station-select'>
 			<custom-select *ngIf='CurStation' [(Value)]='CurStation' (ValueChange)='_onStationChange()' [Options]='StationOptions'></custom-select>
 		</div>
@@ -32,5 +35,8 @@
 		<div class='data' *ngIf='CurStation'>
 			<station-dashboard-data [Date]='Date' [Object]='CurObject'></station-dashboard-data>
 		</div>
+	</div>
+	<div class='summary' *ngIf='CurStation'>
+		{{CurStation.Name}}
 	</div>
 </div>

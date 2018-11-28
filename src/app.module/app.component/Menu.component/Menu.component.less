@@ -1,0 +1,31 @@
+@import "../../commonStyle.less";
+
+.menu{
+    display: flex;
+    .link{
+        width: 33px;
+        height: 33px;
+        cursor: pointer;
+        background-size: 16px !important;
+        color: transparent;
+        &:hover, &.active{
+            background-color: @secondColor;       
+        }
+
+        &.grid{
+            .grid-icon(@mainFontColor);  
+            &:hover, &.active {
+                .grid-icon(@secondFontColor);  
+            }
+
+        }
+
+        &.map{
+            .map-icon(@mainFontColor);
+            &:hover, &.active {
+                .map-icon(@secondFontColor);
+            }
+        }
+
+    }
+}

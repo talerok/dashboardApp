@@ -9,6 +9,7 @@ import { InfoCard } from "../../../models/InfoCard"
 })
 export class InfoCardComponent { 
     @Input() public Data : InfoCard = null;
+    @Input() public AltStyle : string = '';
 
     public GetValueCompareClass(value : number) : string {
         if(this.Data.indicatorValue.Value < value)

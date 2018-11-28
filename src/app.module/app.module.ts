@@ -9,7 +9,6 @@ import { MainDashboard  }   from './app.component/mainDashboard.component/mainDa
 import { StationDashboard  }   from './app.component/StationDashboard.component/StationDashboard.component';
 import { StationDashboardData } from './app.component/StationDashboard.component/StationDashboardData.component/StationDashboardData.component'
 
-import { ChartComponent } from './app.component/Chart.component/Chart.component'
 import { InputWrapper } from './app.component/InputWrapperComponent/InputWrapperComponent'
 import { CustomSelect } from './app.component/CustomSelect.component/CustomSelect.component'
 import { DateTimePicker } from './app.component/DateTimePicker.component/DateTimePicker.component'
@@ -18,15 +17,21 @@ import { MaterialModule } from './material.module'
 import {Routes, RouterModule, } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { Menu } from './app.component/Menu.component/Menu.component';
+import { IndicatorChart } from './app.component/IndicatorChart.component/IndicatorChart.component';
+import { StationMap } from './app.component/StationMap.component/StationMap.component';
+
 const appRoutes: Routes =[
-    { path: '', component: MainDashboard},
     { path: 'station/:id', component: StationDashboard },
-    { path: 'station', component: StationDashboard }
+    { path: 'station', component: StationDashboard },
+    { path: 'main/:mode', component: MainDashboard},
+    { path: '', redirectTo: '/main/table', pathMatch:'full'},
 ];
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes)],
-    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, ChartComponent ],
+    imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes), NgScrollbarModule],
+    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap ],
     bootstrap:    [ AppComponent ],
     providers: [
         {provide: LOCALE_ID, useValue: 'ru-RU'},

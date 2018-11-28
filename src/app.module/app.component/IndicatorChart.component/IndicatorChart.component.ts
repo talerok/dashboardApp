@@ -5,12 +5,12 @@ import { Chart, ChartData } from "chart.js"
 import { MultiIndicatorValue } from '../../../models/MultiIndicatorValue';
 
 @Component({
-    selector: 'chart',
-    templateUrl: './Chart.component.html',
-    styleUrls: ['./Chart.component.less'],
+    selector: 'indicator-chart',
+    templateUrl: './IndicatorChart.component.html',
+    styleUrls: ['./IndicatorChart.component.less'],
 })
 
-export class ChartComponent { 
+export class IndicatorChart { 
     @Input() Value: MultiIndicatorValue;
 
     private _chart: Chart;

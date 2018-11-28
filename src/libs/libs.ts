@@ -6,6 +6,7 @@ import 'core-js';
 import 'rxjs';
 import 'zone.js';
 import 'chart.js'
+import 'leaflet';
 
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 import 'core-js/es6/symbol';

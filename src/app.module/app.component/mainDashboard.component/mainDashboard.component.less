@@ -1,19 +1,53 @@
 @import "../../commonStyle.less";
 
-.cards{
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: flex-start;
+.main-dashboard{
+    min-height: 100%;
+}
 
-    .card{
-        width: 14.285%;
-        flex: none;
+.map-view{
+    height: calc(100vh - 230px);
+    display: flex;
+
+    .map{
+        width: 100%;
+        height: 100%;
+        background-color: black;
     }
 
+    .cards{
+        flex: none;
+        width: 450px;
+        height: 100%;
+        .card{
+            margin: 0px 28px 0px 9px;
+            &:first-child{
+                margin-top: 5px;
+            }
+
+            &:last-child{
+                margin-bottom: 5px;
+            }
+
+        }
+    }
+}
+
+.table-view{
+    .cards{
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: flex-start;
+
+        .card{
+            width: 14.285%;
+            flex: none;
+        }
+
+    }
 }
 
 @media (max-width: 1600px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 16.66%;
         }
@@ -21,7 +55,7 @@
 }
 
 @media (max-width: 1400px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 20%;
         }
@@ -29,7 +63,7 @@
 }
 
 @media (max-width: 1200px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 25%;
         }
@@ -37,7 +71,7 @@
 }
 
 @media (max-width: 1000px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 33.33%;
         }
@@ -45,7 +79,7 @@
 }
 
 @media (max-width: 800px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 50%;
         }
@@ -53,7 +87,7 @@
 }
 
 @media (max-width: 600px) {
-    .cards{
+    .table-view .cards{
         .card{
             width: 100%;
         }
@@ -70,44 +104,18 @@
     }
 
     .date-time-picker{
-        width: 350px;
+        width: 250px;
+        flex: none;
     }
 
 }
 
 .menu{
-    display: flex;
     .input-style();
-    .link{
-        width: 33px;
-        height: 33px;
-        cursor: pointer;
-        background-size: 16px !important;
-
-        &:hover, .active{
-            background-color: @secondColor;       
-        }
-
-        &.grid{
-            .grid-icon(@mainFontColor);  
-            &:hover, .active {
-                .grid-icon(@secondFontColor);  
-            }
-
-        }
-
-        &.map{
-            .map-icon(@mainFontColor);
-            &:hover, .active {
-                .map-icon(@secondFontColor);
-            }
-        }
-
-    }
 }
 
 .summary{
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;

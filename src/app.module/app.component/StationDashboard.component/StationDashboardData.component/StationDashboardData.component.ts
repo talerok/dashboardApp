@@ -64,6 +64,8 @@ export class StationDashboardData {
     }
 
     private _setChartPeriod(period: Period){
+        if(period == this._charPeriod)
+            return;
         this._charPeriod = period;
         this._refreshChart();
     }

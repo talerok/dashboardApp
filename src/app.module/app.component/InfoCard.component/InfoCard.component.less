@@ -10,7 +10,6 @@
     cursor: pointer;
     user-select: none;
     transition: transform 0.5s; 
-
     &:hover{
         transform: scale(1.1,1.1);
         border-radius: 3px;
@@ -42,6 +41,45 @@
         .tittle-bold{
             margin-left: 10px;
             .tittle-style;
+        }
+    }
+
+    &.low{
+        &:hover{
+            transform: scale(1.03,1.03);
+        }    
+    
+        .body{
+            position: relative;
+            .plan-value, .prev-value{
+                .value{
+                    margin-right: 5px;
+                    order: 1;
+                }
+
+                .indicator-icon{
+                    margin-left: 0px;
+                    order: 2;
+                }
+
+                .icon-plan-value, .icon-prev-value{
+                    order: 0;
+                    margin-left: 0px;
+                    margin-right: 5px;
+                }
+            }
+
+            .plan-value{
+                position: absolute;
+                bottom: 10px;
+                left: 20px;
+            }
+
+            .prev-value{
+                position: absolute;
+                bottom: 10px;
+                left: 110px;
+            }
         }
     }
 

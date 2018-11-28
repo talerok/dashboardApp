@@ -3,7 +3,8 @@ import { InfoCard } from "../../../models/InfoCard"
 import { Indicator } from '../../../models/Indicator';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { DataService } from '../../../services/Abstract/DataService';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'main-dashboard',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class MainDashboard { 
 
-    
+    private _mode: string;
 
     public CardClick(info: InfoCard) : void{
         this._router.navigate(["/station", info.indicatorValue.Object.Id]);
@@ -57,7 +58,25 @@ export class MainDashboard {
         });
     }
 
-    constructor(private _dataService : DataService, private _router: Router){
+    private _modeSubscription: Subscription;
+
+    constructor(private _dataService : DataService, private _router: Router, private _activateRoute: ActivatedRoute){
+
+        this._modeSubscription = _activateRoute.params.subscribe(params=> {
+            if(!params['mode']){
+                this._router.navigate(["main", "table"]);
+                return;
+            } 
+            
+            let mode = params['mode'].toLowerCase();
+
+            if(mode === "map" || mode === 'table')
+                this._mode = mode;
+            else
+                this._router.navigate(["main", "table"]);
+
+        });
+
         this._dataService.GetAllStationIndicators().then((res) =>{
             this.Indicators = res;
             this.CurIndicator = res[0];

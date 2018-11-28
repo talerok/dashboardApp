@@ -1,8 +1,7 @@
 <div class='main-dashboard'>	
 	<div class='panel'>
 		<div class='menu'>
-			<div class='link grid'></div>
-			<div class='link map'></div>
+			<dashboard-menu></dashboard-menu>
 		</div>
 		<div class='indicator-select'>
 			<custom-select *ngIf='CurIndicator' [(Value)]='CurIndicator' (ValueChange)='RefreshData()' [Options]='IndicatorOptions'></custom-select>
@@ -11,11 +10,28 @@
 			<datetime-picker [(Value)]='CurDate' (ValueChange)='RefreshData()'></datetime-picker>	
 		</div>
 	</div>
-	<div class='cards'>
-		<div class='card' *ngFor='let card of Cards'>
-			<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+	
+	<div class='table-view' *ngIf='_mode === "table"'>
+		<div class='cards'>
+			<div class='card' *ngFor='let card of Cards'>
+				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+			</div>
 		</div>
 	</div>
+
+	<div class='map-view' *ngIf='_mode === "map"'>
+		<div class='cards'>
+			<ng-scrollbar>
+				<div class='card' *ngFor='let card of Cards'>
+					<info-card [Data]="card" AltStyle="low" (click)='CardClick(card)'></info-card>
+				</div>
+			</ng-scrollbar>
+		</div>
+		<div class='map'>
+			<station-map></station-map>
+		</div>
+	</div>
+
 	<div class='summary'> 
 		<div class='count'>
 			<div class='value'>{{Cards.length}}</div> 
