@@ -39,7 +39,8 @@
         justify-content: flex-start;
 
         .card{
-            width: 14.285%;
+            margin: 1px;
+            width: calc(14.285% - 2px);
             flex: none;
         }
 
@@ -49,7 +50,7 @@
 @media (max-width: 1600px) {
     .table-view .cards{
         .card{
-            width: 16.66%;
+            width: calc(16.66% - 2px);
         }
     }
 }
@@ -57,7 +58,7 @@
 @media (max-width: 1400px) {
     .table-view .cards{
         .card{
-            width: 20%;
+            width: calc(20% - 2px);
         }
     }
 }
@@ -65,7 +66,7 @@
 @media (max-width: 1200px) {
     .table-view .cards{
         .card{
-            width: 25%;
+            width: calc(25% - 2px);
         }
     }
 }
@@ -73,7 +74,7 @@
 @media (max-width: 1000px) {
     .table-view .cards{
         .card{
-            width: 33.33%;
+            width: calc(33.33% - 2px);
         }
     }
 }
@@ -81,7 +82,7 @@
 @media (max-width: 800px) {
     .table-view .cards{
         .card{
-            width: 50%;
+            width: calc(50% - 2px);
         }
     }
 }
@@ -89,7 +90,7 @@
 @media (max-width: 600px) {
     .table-view .cards{
         .card{
-            width: 100%;
+            width: calc(100% - 2px);
         }
     }
 }
@@ -112,6 +113,8 @@
 
 .menu{
     .input-style();
+    overflow: hidden;
+    flex: none;
 }
 
 .summary{

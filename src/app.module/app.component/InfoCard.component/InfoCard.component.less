@@ -113,9 +113,28 @@
                 line-height: 55px;
             }
 
-            .icon{
+            .icon-container{
                 width: 60px;
                 height: 60px;
+                position: relative;
+
+                .icon{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+
+                .circle{
+                    width: 40px;
+                    height: 40px;
+                    margin: 10px;
+                    border-radius: 20px;
+                    background-color: @secondBackgroundColor;
+                    position: absolute;
+                }
+
             }
 
         }

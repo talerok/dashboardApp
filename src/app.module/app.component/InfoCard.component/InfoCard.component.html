@@ -15,7 +15,10 @@
             <div class='icon-prev-value icon'></div>           
         </div>
         <div class='cur-value'>
-            <div class='icon-{{Data.indicator.Type}}-{{Data.indicatorValue.Status}} icon'></div>
+            <div class='icon-container'>
+                <div class='circle'></div>
+                <div class='icon icon-{{Data.indicator.Type}}-{{Data.indicatorValue.Status}}'></div>
+            </div>
             <div class='value'>{{Data.indicatorValue.Value}}</div>
         </div>
         <div class='unit' [innerHTML]='Data.indicator.Unit'></div>
