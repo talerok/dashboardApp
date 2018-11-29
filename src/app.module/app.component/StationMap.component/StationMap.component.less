@@ -1,4 +1,97 @@
-.map{
+@import "../../commonStyle.less";
+
+.leaflet-station-map{
     width: 100%;
     height: 100%;
+    z-index: 1;
+
+    .leaflet-left{
+        top: calc(50% - 30px);
+        right: 10px;
+        left: unset;
+    }
+
+    .leaflet-div-icon{
+        background-color: transparent;
+        border: 0;
+        .leaflet-station-icon{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            &.active{
+
+                .leaflet-station-icon-value{
+                    font-size: 22px;
+                }
+
+                .leaflet-station-icon-point-container{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 25px;
+                    background-size: 30px;
+                    margin-bottom: 9px;
+                    .leaflet-station-icon-point{
+                        margin: 44px 0px 20px 20px;
+                        border-width: 2px;
+                        border-style: solid;
+                        border-color: white;
+                        width: 5px;
+                        height: 5px;
+                        .shadow;
+                    }  
+                }
+
+                .leaflet-station-icon-name{
+                    font-size: 14px;
+                }
+
+            }
+
+            .leaflet-station-icon-value{
+                .input-style;
+                font-size: 15px;
+                font-weight: 600;
+                padding: 0px 4px;
+            }
+
+            .leaflet-station-icon-point-container{
+                .shadow;
+                margin: 5px;
+                width: 20px;
+                height: 20px;
+                background-color: white;
+                border-radius: 10px;
+                
+                .leaflet-station-icon-point{
+                    width: 10px;
+                    height: 10px;
+                    margin: 5px;
+                    border-radius: 5px;
+
+                    &.good{
+                        background-color: @positiveColor;
+                    }
+
+                    &.bad{
+                        background-color: @negativeColor;
+                    }
+
+                    &.fine{
+                        background-color: @neutralColor;
+                    }
+                }
+
+            }
+
+            .leaflet-station-icon-name{
+                .shadow;
+                border-radius: 10px;
+                background-color: #213c72;
+                color: white;
+                padding: 3px 10px;
+            }
+
+        }   
+    }
 }

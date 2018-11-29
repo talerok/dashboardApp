@@ -15,8 +15,12 @@ export class MainDashboard {
 
     private _mode: string;
 
-    public CardClick(info: InfoCard) : void{
+    public GoToStationDashboard(info: InfoCard) : void{
         this._router.navigate(["/station", info.indicatorValue.Object.Id]);
+    }
+
+    public MapCardClick(info: InfoCard) : void{
+        this._activeCard = info;
     }
 
     public Indicators: Indicator[] = [];
@@ -51,11 +55,13 @@ export class MainDashboard {
 
     public CurDate : Date = new Date();
 
+    private _activeCard: InfoCard;
 
     public async RefreshData(){
         this.Cards = (await this._dataService.GetAllStationsData(this.CurIndicator, this.CurDate)).map((x) => {
             return new InfoCard(x.Object.Name,x.Object.Type,this.CurIndicator, x);
         });
+        this._activeCard = null;
     }
 
     private _modeSubscription: Subscription;

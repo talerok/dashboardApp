@@ -14,7 +14,7 @@
 	<div class='table-view' *ngIf='_mode === "table"'>
 		<div class='cards'>
 			<div class='card' *ngFor='let card of Cards'>
-				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+				<info-card [Data]="card" (click)='GoToStationDashboard(card)'></info-card>
 			</div>
 		</div>
 	</div>
@@ -23,12 +23,12 @@
 		<div class='cards'>
 			<ng-scrollbar>
 				<div class='card' *ngFor='let card of Cards'>
-					<info-card [Data]="card" AltStyle="low" (click)='CardClick(card)'></info-card>
+					<info-card [Data]="card" AltStyle="low" (click)='MapCardClick(card)'></info-card>
 				</div>
 			</ng-scrollbar>
 		</div>
 		<div class='map'>
-			<station-map></station-map>
+			<station-map [Value]='Cards' [Selected]='_activeCard' (MarkerClick)='GoToStationDashboard($event)'></station-map>
 		</div>
 	</div>
 
