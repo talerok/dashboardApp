@@ -8,7 +8,7 @@ import { InfoCard } from "../../../models/InfoCard"
     styleUrls: ['./InfoCard.component.less'],
 })
 export class InfoCardComponent { 
-    @Input() public Data : InfoCard = null;
+    @Input() public Data : InfoCard<any> = null;
     @Input() public AltStyle : string = '';
 
     public GetValueCompareClass(value : number) : string {

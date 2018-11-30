@@ -6,12 +6,23 @@
 				<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
 			</div>
 		</div>
+
+
 		<div class='cards'>
 			<div *ngFor='let card of _cards' class='card'>
 				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
 			</div>
 		</div>
+
+		<div class='table'>
+
+		</div>
+
+		<div class='gant'>
+
+		</div>
 	</div>
+
 	<div class='chart-container' *ngIf='_chartData && _curCard'>
 		<div class='chart-header'>
 			<div class='description'>

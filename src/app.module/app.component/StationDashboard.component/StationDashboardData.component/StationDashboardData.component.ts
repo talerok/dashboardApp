@@ -7,6 +7,7 @@ import { CustomSelect } from '../../CustomSelect.component/CustomSelect.componen
 import { Indicator } from '../../../../models/Indicator';
 import { InfoCard } from '../../../../models/InfoCard';
 import { MultiIndicatorValue } from '../../../../models/MultiIndicatorValue';
+import { IndicatorValue } from '../../../../models/IndicatorValue';
 
 @Component({
     selector: 'station-dashboard-data',
@@ -25,11 +26,11 @@ export class StationDashboardData {
     private _indicatorOptions: CustomSelectOption[];
     private _curIndicator: Indicator;
     
-    private _cards: InfoCard[] = [];
+    private _cards: InfoCard<Indicator>[] = [];
 
     private _chartData: MultiIndicatorValue;
     private _charPeriod: Period;
-    private _curCard: InfoCard;
+    private _curCard: InfoCard<Indicator>;
 
     ngOnChanges(changes: SimpleChanges) {
         this._indicatorOptions = this._generateOptions();
@@ -41,7 +42,29 @@ export class StationDashboardData {
         this._chartData = await this._dataSerice.GetDataFromPeriod(this.Object, this._curCard.indicator, this.Date, this._charPeriod);
     }
 
-    public async CardClick(card: InfoCard){
+    private _resetChart(){
+        this._charPeriod = Period.Day;
+        this._chartData = null;
+    }
+
+    private _resetCards(){
+        if(this._curCard)
+            this._curCard.Active = false;
+        this._curCard = null;
+    }
+
+    private _resetDashboard(){
+        this._resetCards();
+        this._resetChart();
+    }
+
+    private _generateCards(values: IndicatorValue<Indicator>[]) : InfoCard<Indicator>[]{
+        return values.map((x) =>
+            new InfoCard(x.Object.Name, "", x.Object, x)
+        );
+    }
+
+    public async CardClick(card: InfoCard<Indicator>){
         if(this._curCard)
             this._curCard.Active = false;
 
@@ -51,16 +74,9 @@ export class StationDashboardData {
     }
 
     public async RefreshData(){
-        this._cards = (await
-            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date))
-            .map((x) =>
-                new InfoCard(x.Object.Name, "", x.Object, x)
-            );
-        this._charPeriod = Period.Day;
-        this._chartData = null;
-        if(this._curCard)
-            this._curCard.Active = false;
-        this._curCard = null;
+        this._cards =  this._generateCards(await
+            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date)); 
+        this._resetDashboard();
     }
 
     private _setChartPeriod(period: Period){

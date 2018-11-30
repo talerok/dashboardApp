@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InfoCard } from "../../../models/InfoCard"
+import { Station } from "../../../models/Station"
 import { Indicator } from '../../../models/Indicator';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { DataService } from '../../../services/Abstract/DataService';
@@ -15,11 +16,11 @@ export class MainDashboard {
 
     private _mode: string;
 
-    public GoToStationDashboard(info: InfoCard) : void{
+    public GoToStationDashboard(info: InfoCard<Station>) : void{
         this._router.navigate(["/station", info.indicatorValue.Object.Id]);
     }
 
-    public MapCardClick(info: InfoCard) : void{
+    public MapCardClick(info: InfoCard<Station>) : void{
         this._activeCard = info;
     }
 
@@ -35,7 +36,7 @@ export class MainDashboard {
 
     public IndicatorOptions : CustomSelectOption[] = [];
 
-    public Cards : InfoCard[] = [
+    public Cards : InfoCard<Station>[] = [
         
     ];
 
@@ -48,14 +49,14 @@ export class MainDashboard {
     }
 
     public GetSummValue() : number{
-        return this.Cards.reduce(function(sum : number, current : InfoCard) {
+        return this.Cards.reduce(function(sum : number, current : InfoCard<Station>) {
             return sum + current.indicatorValue.Value;
           }, 0);  
     }
 
     public CurDate : Date = new Date();
 
-    private _activeCard: InfoCard;
+    private _activeCard: InfoCard<Station>;
 
     public async RefreshData(){
         this.Cards = (await this._dataService.GetAllStationsData(this.CurIndicator, this.CurDate)).map((x) => {

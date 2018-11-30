@@ -15,22 +15,22 @@ export class StationMap {
 
     private _map: L.Map;
 
-    @Input() Value: InfoCard[];
-    @Input() Selected: InfoCard;
-    @Output() MarkerClick: EventEmitter<InfoCard> = new EventEmitter<InfoCard>();
+    @Input() Value: InfoCard<Station>[];
+    @Input() Selected: InfoCard<Station>;
+    @Output() MarkerClick: EventEmitter<InfoCard<Station>> = new EventEmitter<InfoCard<Station>>();
 
-    private _generateIconHtml(info : InfoCard) : string {
+    private _generateIconHtml(info : InfoCard<Station>) : string {
         let value = info.indicatorValue.Value + " " + info.indicator.Unit;
         return "<div class='leaflet-station-icon'><div class='leaflet-station-icon-value'>" + value + "</div><div class='leaflet-station-icon-point-container'><div class='leaflet-station-icon-point " + info.indicatorValue.Status + "'></div></div><div class='leaflet-station-icon-name'>" + info.name + "</div></div>"
     }
 
-    private _generateActiveIconHtml(info: InfoCard) : string{
+    private _generateActiveIconHtml(info: InfoCard<Station>) : string{
         let value = info.indicatorValue.Value + " " + info.indicator.Unit;
         let station = info.indicatorValue.Object as Station;
         return "<div class='leaflet-station-icon active'><div class='leaflet-station-icon-value'>" + value + "</div><div class='leaflet-station-icon-point-container icon-" + station.Type + "'><div class='leaflet-station-icon-point " + info.indicatorValue.Status + "'></div></div><div class='leaflet-station-icon-name'>" + info.name + "</div></div>"
     }
 
-    private _generateIcon(info: InfoCard) : L.DivIcon {
+    private _generateIcon(info: InfoCard<Station>) : L.DivIcon {
         if(info === this.Selected)
             return L.divIcon({
                 iconSize: new L.Point(200,124),
