@@ -2,7 +2,7 @@ import { DataService } from "./Abstract/DataService";
 import { Indicator } from "../models/Indicator";
 import { Injectable, EventEmitter } from '@angular/core';
 
-import { Station, StationBlock, BaseStationObject } from "../models/Station";
+import { Station, StationBlock, BaseStationObject, BlockCollection } from "../models/Station";
 import { IndicatorValue } from "../models/IndicatorValue";
 import { Status } from "../models/Status";
 import { Period } from "../models/Period";
@@ -165,6 +165,13 @@ export class FakeDateService implements DataService {
         return this._timeOutPromise<MultiIndicatorValue>(
         this._generateFakeMultiIndicatorValue(period)
         , this._timeout)
+    }
+
+    public async GetBlockCollection(blocks: StationBlock[]) : Promise<BlockCollection> {
+        return this._timeOutPromise<BlockCollection>(
+            new BlockCollection(blocks, this._fakeStationIndicators),
+            this._timeout
+        )
     }
 
 }

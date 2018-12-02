@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { Period } from '../../../models/Period'
-import { Station, BaseStationObject, StationBlock } from '../../../models/Station'
+import { Station, BaseStationObject, StationBlock, BlockCollection } from '../../../models/Station'
 import { DataService } from '../../../services/Abstract/DataService';
 
 import { ActivatedRoute, Router} from '@angular/router';
@@ -48,6 +48,67 @@ export class StationDashboard {
         this._setActiveStation(station);
     }
 
+    //------------------------------------
+    private _copyBlocks(blocks: StationBlock[]) : StationBlock[]{
+        let res: StationBlock[] = [];
+        blocks.forEach((x) =>{
+            res.push(x);
+        });
+        return res;
+    }
+
+    private async _considerBlock(block: StationBlock){
+        if(!(this.CurObject instanceof BlockCollection))
+            return;
+        if(!this._isBlockUnConsidered(block))
+            return;
+
+        let blockCollection = this.CurObject as BlockCollection;
+        if(blockCollection.Blocks.length === this.CurStation.Blocks.length - 1)
+            this._setActiveObject(this.CurStation)
+        else{
+            let blocks = this._copyBlocks(this.CurObject.Blocks);
+            blocks.push(block);
+            this._setActiveObject(await this._dataSerice.GetBlockCollection(blocks));
+        }
+    }
+
+    private async _unConsiderBlock(block: StationBlock){
+        if(this._isBlockUnConsidered(block))
+            return;
+
+        let blocks: StationBlock[];
+        
+        if(this.CurObject instanceof BlockCollection){
+            blocks = this._copyBlocks(this.CurObject.Blocks);
+        }else{
+            blocks = this._copyBlocks(this.CurStation.Blocks);  
+        }
+        
+        let index = blocks.indexOf(block);
+        if(index === -1)
+            return;
+        blocks.splice(index,1);
+        this._setActiveObject(await this._dataSerice.GetBlockCollection(blocks));
+    }
+
+    private _isBlockUnConsidered(block: StationBlock){
+        return this.CurObject instanceof BlockCollection && (this.CurObject as BlockCollection).Blocks.indexOf(block) === -1;
+    }
+
+    private _considerBlockClick(event: any, block: StationBlock){
+        event.stopPropagation();
+        if(this._isBlockUnConsidered(block))
+            this._considerBlock(block);
+        else
+            this._unConsiderBlock(block);
+    }
+
+    private async _setActiveObject(object: BaseStationObject){
+        this.CurObject = object;
+    }
+
+    //------------------------------------
     constructor(private _dataSerice: DataService, private _activateRoute: ActivatedRoute, private _router: Router){
         this._urlSubscription = _activateRoute.params.subscribe(params=>{
             this._urlStationId = params['id'];

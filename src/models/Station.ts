@@ -32,3 +32,11 @@ export class Station extends BaseStationObject{
         super(Id,Name,Indicators);
     }
 }
+
+export class BlockCollection extends BaseStationObject{
+
+    constructor(readonly Blocks: StationBlock[], readonly Indicators: Indicator[]) {
+        super("null", "Группа блоков", Indicators);
+    }
+
+}

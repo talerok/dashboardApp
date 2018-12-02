@@ -100,8 +100,17 @@
                     border-style: solid;
                     border-color: @thirdColor;
                     
+
+                    &.unconsidered{
+                        background-color: @secondColor;
+                        color: @secondFontColor;
+                        .consider{
+                            .minus-icon(@secondFontColor);
+                        }
+
+                    }
+
                     .consider{
-                        display: none;
                         .plus-icon(@secondColor);
                         border: 0;
                         background-color: transparent;
