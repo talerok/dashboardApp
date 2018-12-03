@@ -13,7 +13,8 @@ export class StationBlock extends BaseStationObject{
         Id: string,
         readonly StationId: string, 
         Name: string,
-        Indicators : Indicator[]
+        Indicators : Indicator[],
+        readonly Status: boolean
     ){
         super(Id,Name,Indicators);
     }
@@ -27,7 +28,8 @@ export class Station extends BaseStationObject{
         Indicators: Indicator[],
         readonly XCord: number,
         readonly YCord: number,
-        readonly Blocks: StationBlock[]
+        readonly Blocks: StationBlock[],
+        readonly Status: boolean
     ){
         super(Id,Name,Indicators);
     }

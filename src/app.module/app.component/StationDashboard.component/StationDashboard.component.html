@@ -23,9 +23,11 @@
 				</div>
 				<div class='menu-body'>
 					<div class='menu-elem {{CurObject === CurStation ? "active" : "" }}' (click)='_setActiveObject(CurStation)'> 
+						<div class='status {{CurStation.Status ? "on" : "off"}}'></div>
 						Электростанция
 					</div>
 					<div *ngFor='let block of CurStation.Blocks' class='menu-elem {{_isBlockConsidered(block) ? "considered" : ""}} {{CurObject === block ? "active" : "" }}' (click)='_setActiveObject(block)'>
+						<div class='status {{block.Status ? "on" : "off"}}'></div>
 						{{block.Name}}
 						<button class='consider' (click)="_considerBlockClick($event, block)"></button>
 					</div>

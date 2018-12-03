@@ -91,7 +91,7 @@
                     height: 60px;
                     line-height: 60px;
                     font-size: 21px;
-                    padding-left: 30px;
+                    padding-left: 50px;
                     user-select: none;
                     cursor: pointer;
 
@@ -100,6 +100,44 @@
                     border-style: solid;
                     border-color: @thirdColor;
                     
+                    .status{
+                        width: 16px;
+                        height: 16px;
+                        position: absolute;
+                        top: 21px;
+                        left: 17px;
+                        
+                        border-radius: 12px;
+                        border-width: 2px;
+                        border-style: solid;
+
+                        &.on{
+                            background-color: @thirdBackgroundColor;
+                            border-color: @positiveColor;
+                        }
+
+                        &.off{
+                            background-color: @thirdBackgroundColor;   
+                            border-color: @negativeColor;
+                        }
+
+
+                    }
+
+                    &:hover, &.active, &.considered{
+                        .status{                      
+                            &.on{
+                                background-color: @positiveColor;
+                                border-color: @thirdBackgroundColor;
+                            }
+
+                            &.off{
+                                background-color: @negativeColor;
+                                border-color: @thirdBackgroundColor;
+                            }
+
+                        }
+                    }
 
                     &.considered{
                         background-color: @secondColor;
@@ -125,7 +163,7 @@
 
                     &:hover, &.active{
                         background-color: @mainColor;
-                        color: @secondFontColor;
+                        color: @secondFontColor; 
                     }
                 }
             }
