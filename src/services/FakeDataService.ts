@@ -7,6 +7,8 @@ import { IndicatorValue } from "../models/IndicatorValue";
 import { Status } from "../models/Status";
 import { Period } from "../models/Period";
 import { MultiIndicatorValue } from "../models/MultiIndicatorValue";
+import { StateTableRow, StateTable } from "../models/StateTable";
+import { StationObjectIndicatorValues } from "../models/StationObjectIndicatorValues"
 
 @Injectable()
 export class FakeDateService implements DataService {
@@ -29,11 +31,15 @@ export class FakeDateService implements DataService {
             this.LoadEvent.emit(false);
     }
 
-    //
-
     private _fakeStationIndicators: Indicator[] = [
         new Indicator("2", "Генерация/Электрогенерация", "", "energy"),
-        new Indicator("3", "Топливо",  "", "fuel")
+        new Indicator("3", "Топливо",  "", "fuel"),
+        new Indicator("11", "Изменение состава оборудования", "", "table")
+    ];
+
+    private _fakeBlocksIndicators: Indicator[] = [
+        this._fakeStationIndicators[0],
+        this._fakeStationIndicators[1]
     ];
 
     private _fakeEnergyIndicators : Indicator[] = [
@@ -118,26 +124,53 @@ export class FakeDateService implements DataService {
         let count = Math.floor(Math.random() * 6) + 2;
         let res: StationBlock[] = [];
         for(let i = 0; i < count; i++)
-            res.push(new StationBlock(i.toString(), stationId, "Блок №: " + (i + 1), this._fakeStationIndicators));    
+            res.push(new StationBlock(i.toString(), stationId, "Блок №: " + (i + 1), this._fakeBlocksIndicators));    
         return res;
     }
 
+    private _generateFakeTableData(object: BaseStationObject) : StateTable{
+        let blocks: StationBlock[];
+        if(object instanceof Station)
+            blocks = object.Blocks;
+        else if(object instanceof BlockCollection)
+            blocks = object.Blocks;
+        else
+            return new StateTable([]);
 
-    public async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date):  Promise<IndicatorValue<Indicator>[]> {
+        let res: StateTableRow[] = [];
+        let count = Math.floor(Math.random() * 100) + 30;
+        let blocksCount = blocks.length;
+        let now = Date.now();
+        for(let i = 0; i < count; i++)
+            res.push(new StateTableRow(new Date(now + 43200000 * i), blocks[i % blocksCount], "Тестовый коментарий № " + i,  i % 2 === 0))
+        return new StateTable(res);
+    }
+
+    private _generateFakeStationObjectIndicatorValues(indicators: Indicator[]) : StationObjectIndicatorValues{
+        let res = indicators.map((x) => {
+            let plan = this._randomValue();
+            let prev = this._randomValue();
+            let value = this._randomValue();
+            let status : Status = value === 0 ? Status.Bad : (plan * 0.9 > value ? Status.Good : Status.Fine);
+            return new IndicatorValue<Indicator>(plan,prev, value, status, x);
+       });
+       return new StationObjectIndicatorValues(res);
+    }
+
+    public async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date):  Promise<any> {
+
+        if(indicator === this._fakeStationIndicators[2] && (object instanceof Station || object instanceof BlockCollection))
+            return this._timeOutPromise<StateTable>(this._generateFakeTableData(object), this._timeout);
+        
         let indicators : Indicator[];
         if(indicator === this._fakeStationIndicators[0])
             indicators = this._fakeEnergyIndicators;
-        else
+        else 
             indicators = this._fakeFuelIndicators;
 
-        return this._timeOutPromise<IndicatorValue<Indicator>[]>(
-           indicators.map((x) => {
-                let plan = this._randomValue();
-                let prev = this._randomValue();
-                let value = this._randomValue();
-                let status : Status = value === 0 ? Status.Bad : (plan * 0.9 > value ? Status.Good : Status.Fine);
-                return new IndicatorValue<Indicator>(plan,prev, value, status, x);
-           }), this._timeout);
+        return this._timeOutPromise<StationObjectIndicatorValues>(
+            this._generateFakeStationObjectIndicatorValues(indicators)
+            , this._timeout);
     }
 
     public async GetStations() : Promise<Station[]> {

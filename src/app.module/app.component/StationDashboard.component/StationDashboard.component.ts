@@ -58,50 +58,51 @@ export class StationDashboard {
     }
 
     private async _considerBlock(block: StationBlock){
-        if(!(this.CurObject instanceof BlockCollection))
-            return;
-        if(!this._isBlockUnConsidered(block))
+        let blocks: StationBlock[];
+        if(!(this.CurObject instanceof BlockCollection)){
+            blocks = []
+        }else{
+            blocks = this._copyBlocks(this.CurObject.Blocks);
+        }
+            
+        if(this._isBlockConsidered(block))
             return;
 
-        let blockCollection = this.CurObject as BlockCollection;
-        if(blockCollection.Blocks.length === this.CurStation.Blocks.length - 1)
-            this._setActiveObject(this.CurStation)
+        blocks.push(block);
+        this._setActiveObject(await this._dataSerice.GetBlockCollection(blocks));
+     
+    }
+
+    private async _unConsiderBlock(block: StationBlock){
+        if(!(this.CurObject instanceof BlockCollection))
+            return;
+
+        if(!this._isBlockConsidered(block))
+            return;
+
+        let blocks = this._copyBlocks(this.CurObject.Blocks);
+    
+        let index = blocks.indexOf(block);
+        if(index === -1)
+            return;
+        if(blocks.length === 1)
+            this.CurObject = this.CurStation;
         else{
-            let blocks = this._copyBlocks(this.CurObject.Blocks);
-            blocks.push(block);
+            blocks.splice(index,1);
             this._setActiveObject(await this._dataSerice.GetBlockCollection(blocks));
         }
     }
 
-    private async _unConsiderBlock(block: StationBlock){
-        if(this._isBlockUnConsidered(block))
-            return;
-
-        let blocks: StationBlock[];
-        
-        if(this.CurObject instanceof BlockCollection){
-            blocks = this._copyBlocks(this.CurObject.Blocks);
-        }else{
-            blocks = this._copyBlocks(this.CurStation.Blocks);  
-        }
-        
-        let index = blocks.indexOf(block);
-        if(index === -1)
-            return;
-        blocks.splice(index,1);
-        this._setActiveObject(await this._dataSerice.GetBlockCollection(blocks));
-    }
-
-    private _isBlockUnConsidered(block: StationBlock){
-        return this.CurObject instanceof BlockCollection && (this.CurObject as BlockCollection).Blocks.indexOf(block) === -1;
+    private _isBlockConsidered(block: StationBlock){
+        return this.CurObject instanceof BlockCollection && this.CurObject.Blocks.indexOf(block) !== -1;
     }
 
     private _considerBlockClick(event: any, block: StationBlock){
         event.stopPropagation();
-        if(this._isBlockUnConsidered(block))
-            this._considerBlock(block);
-        else
+        if(this._isBlockConsidered(block))
             this._unConsiderBlock(block);
+        else
+            this._considerBlock(block);
     }
 
     private async _setActiveObject(object: BaseStationObject){

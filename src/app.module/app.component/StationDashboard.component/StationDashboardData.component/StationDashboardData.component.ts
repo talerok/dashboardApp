@@ -7,7 +7,9 @@ import { CustomSelect } from '../../CustomSelect.component/CustomSelect.componen
 import { Indicator } from '../../../../models/Indicator';
 import { InfoCard } from '../../../../models/InfoCard';
 import { MultiIndicatorValue } from '../../../../models/MultiIndicatorValue';
-import { IndicatorValue } from '../../../../models/IndicatorValue';
+import { StationObjectIndicatorValues } from '../../../../models/StationObjectIndicatorValues'
+import { StateTable, StateTableRow } from '../../../../models/StateTable';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
     selector: 'station-dashboard-data',
@@ -26,7 +28,8 @@ export class StationDashboardData {
     private _indicatorOptions: CustomSelectOption[];
     private _curIndicator: Indicator;
     
-    private _cards: InfoCard<Indicator>[] = [];
+    private _data: any;
+    private _dataType: string;
 
     private _chartData: MultiIndicatorValue;
     private _charPeriod: Period;
@@ -58,8 +61,8 @@ export class StationDashboardData {
         this._resetChart();
     }
 
-    private _generateCards(values: IndicatorValue<Indicator>[]) : InfoCard<Indicator>[]{
-        return values.map((x) =>
+    private _generateCards(soiv: StationObjectIndicatorValues) : InfoCard<Indicator>[]{
+        return soiv.values.map((x) =>
             new InfoCard(x.Object.Name, "", x.Object, x)
         );
     }
@@ -74,8 +77,20 @@ export class StationDashboardData {
     }
 
     public async RefreshData(){
-        this._cards =  this._generateCards(await
-            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date)); 
+        let loadedData = await
+            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date); 
+        if(loadedData instanceof StationObjectIndicatorValues){
+            this._data = this._generateCards(loadedData);
+            this._dataType = "cards";
+        }
+        else if(loadedData instanceof StateTable){
+            this._data = loadedData;
+            this._dataType = "stateTable";
+        }
+        else{
+            this._dataType = null;
+            this._data = null;
+        }
         this._resetDashboard();
     }
 

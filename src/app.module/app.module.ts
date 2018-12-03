@@ -21,6 +21,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { Menu } from './app.component/Menu.component/Menu.component';
 import { IndicatorChart } from './app.component/IndicatorChart.component/IndicatorChart.component';
 import { StationMap } from './app.component/StationMap.component/StationMap.component';
+import { StateTableComponent } from './app.component/StationDashboard.component/StationDashboardData.component/StateTable.component/StateTable.component';
+
 
 const appRoutes: Routes =[
     { path: 'station/:id', component: StationDashboard },
@@ -31,7 +33,7 @@ const appRoutes: Routes =[
 
 @NgModule({
     imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes), NgScrollbarModule],
-    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap ],
+    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap, StateTableComponent ],
     bootstrap:    [ AppComponent ],
     providers: [
         {provide: LOCALE_ID, useValue: 'ru-RU'},

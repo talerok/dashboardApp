@@ -8,17 +8,17 @@
 		</div>
 
 
-		<div class='cards'>
-			<div *ngFor='let card of _cards' class='card'>
+		<div class='cards' *ngIf='_dataType == "cards"'>
+			<div *ngFor='let card of _data' class='card'>
 				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
 			</div>
 		</div>
-
-		<div class='table'>
-
+		
+		<div class='stateTable' *ngIf='_dataType === "stateTable"'>
+			<state-table [Value]='_data'></state-table>
 		</div>
 
-		<div class='gant'>
+		<div class='gantChart' *ngIf='_dataType === "gantChart"'>
 
 		</div>
 	</div>

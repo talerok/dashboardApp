@@ -1,0 +1,29 @@
+
+<div class="StateTable mat-elevation-z8">
+	<table mat-table [dataSource]="_dataSource">
+		<ng-container matColumnDef="Date">
+			<th mat-header-cell *matHeaderCellDef> Дата </th>
+			<td mat-cell *matCellDef="let element"> {{_getDate(element.Date)}} </td>
+		</ng-container>
+		<ng-container matColumnDef="Time">
+			<th mat-header-cell *matHeaderCellDef> Время </th>
+			<td mat-cell *matCellDef="let element"> {{_getTime(element.Date)}} </td>
+		</ng-container>
+		<ng-container matColumnDef="ObjectName">
+			<th mat-header-cell *matHeaderCellDef> Объект </th>
+			<td mat-cell *matCellDef="let element"> {{element.Object.Name}} </td>
+		</ng-container>
+		<ng-container matColumnDef="Comment">
+			<th mat-header-cell *matHeaderCellDef> Комментарий </th>
+			<td mat-cell *matCellDef="let element"> {{element.Comment}} </td>
+		</ng-container>
+		<ng-container matColumnDef="State">
+			<th mat-header-cell *matHeaderCellDef> Состояние </th>
+			<td mat-cell *matCellDef="let element"> <div class="state state-{{element.State ? 'on' : 'off'}}">{{element.State ? "Включен" : "Выключен"}}</div> </td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="['Date','Time','ObjectName','Comment','State']"></tr>
+		<tr mat-row *matRowDef="let row; columns: ['Date','Time','ObjectName','Comment','State']"></tr>
+	</table>
+	<mat-paginator [pageSizeOptions]="[10, 15, 20, 25, 30]" showFirstLastButtons></mat-paginator>
+</div>

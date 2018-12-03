@@ -1,0 +1,45 @@
+@import "../../../../commonStyle.less";
+
+.StateTable{
+    table{
+        width: 100%;
+
+        .mat-header-row{
+            background-color: @secondBackgroundColor;
+
+            .mat-header-cell{
+                font-weight: 600;
+                font-size: 16px;
+            }
+
+        }
+ 
+        tr{
+            &:nth-child(2n){
+                background-color: @secondBackgroundColor;
+            }
+        }
+
+        td{
+            &.mat-cell:not(:nth-child(4)){
+                width: 100px;
+            }
+        }
+
+        .state{
+            color: @secondFontColor;
+            display: inline-block;
+            border-radius: 3px;
+            overflow: hidden;
+            padding: 2px 4px;
+            &.state-on{
+                background-color: @positiveColor;
+            }
+
+            &.state-off{
+                background-color: @negativeColor;
+            }
+        }
+
+    }
+}

@@ -5,9 +5,11 @@ import {
     DateAdapter
 } from '@angular/material';
 
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {NativeDateAdapter} from '@angular/material';
 import {Injectable} from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @Injectable()
 export class MyDateAdapter extends NativeDateAdapter {
 
@@ -20,7 +22,10 @@ export class MyDateAdapter extends NativeDateAdapter {
 @NgModule({
   exports: [
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     {provide: DateAdapter, useClass: MyDateAdapter}

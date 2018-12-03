@@ -12,11 +12,6 @@
         bottom: 0px;
         left: 0px;
     }
-    .cards{
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: center;
-    }
 
     .panel{
         margin-bottom: 20px;
@@ -46,6 +41,11 @@
     .body{
         display: flex;
         padding-bottom: 45px;
+        
+        .data{
+            width: 100%;
+        }
+
         .menu{
             flex: none;
             margin-right: 20px;
@@ -101,7 +101,7 @@
                     border-color: @thirdColor;
                     
 
-                    &.unconsidered{
+                    &.considered{
                         background-color: @secondColor;
                         color: @secondFontColor;
                         .consider{
