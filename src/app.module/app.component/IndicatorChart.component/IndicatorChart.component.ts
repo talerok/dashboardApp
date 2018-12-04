@@ -25,11 +25,13 @@ export class IndicatorChart {
             datasets: [{
                 label: "План",
                 backgroundColor: "#94a8d1",
-                data: this.Value.Plan
+                data: this.Value.Plan,
+                hidden: true
             }, {
                 label: "Сравнение с предыдущим периодом",
                 backgroundColor: "#486bb1",
                 data: this.Value.Prev,
+                hidden: true
             }, {
                 label: "Факт",
                 backgroundColor: "#283f6e",

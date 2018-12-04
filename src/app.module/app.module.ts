@@ -23,7 +23,6 @@ import { IndicatorChart } from './app.component/IndicatorChart.component/Indicat
 import { StationMap } from './app.component/StationMap.component/StationMap.component';
 import { StateTableComponent } from './app.component/StationDashboard.component/StationDashboardData.component/StateTable.component/StateTable.component';
 
-
 const appRoutes: Routes =[
     { path: 'station/:id', component: StationDashboard },
     { path: 'station', component: StationDashboard },

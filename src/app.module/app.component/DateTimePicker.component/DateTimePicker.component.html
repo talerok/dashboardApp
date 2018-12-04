@@ -2,13 +2,14 @@
     <div class='current-datetime' (click)='_isOpen=!_isOpen'>
         <input-wrapper [Icon]='"icon-calendar"' [Description]='_getDate(Value)' [Additional]='_getTime(Value)' [HasAttachments]='true'> </input-wrapper>
     </div>
-    <div class='body' [hidden]='!_isOpen'>
+    <div class='body' [hidden]='!_isOpen' >
         <mat-calendar [(selected)]='Date'></mat-calendar>
+
         <div class='time-picker'>
             <div class='counter'>
                 <button class='increase' (click)='_increaseHour()'></button>
                 <div class='value'>
-                        {{_getHours(Date)}}
+                    {{_getHours(Date)}}
                 </div>
                 <button class='decrease' (click)='_decreaseHour()'></button>
             </div>

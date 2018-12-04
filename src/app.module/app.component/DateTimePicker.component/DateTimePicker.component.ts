@@ -1,13 +1,19 @@
-import { Component, HostListener, ElementRef, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, ViewEncapsulation, HostListener, ElementRef, Input, Output, EventEmitter, ViewChild, SimpleChanges} from '@angular/core';
+import { Period } from '../../../models/Period';
+import { MatCalendar, MatCalendarHeader } from '@angular/material';
 
 @Component({
     selector: 'datetime-picker',
     templateUrl: './DateTimePicker.component.html',
     styleUrls: ['./DateTimePicker.component.less'],
+    encapsulation: ViewEncapsulation.None
 })
 export class DateTimePicker { 
     @Input() Value: Date;
     @Output() ValueChange: EventEmitter<Date> = new EventEmitter<Date>();
+
+    @ViewChild(MatCalendar)private _calendar: MatCalendar<any>;
+    @ViewChild(MatCalendarHeader)private _calendarHeader: MatCalendarHeader<any>;
 
     public Date: Date;
 

@@ -69,27 +69,27 @@ export class FakeDateService implements DataService {
     }
 
     private _fakeStations: Station[] = [
-        new Station("0", "Верхнетагильская ГРЭС","gres", this._fakeStationIndicators, 57.357129, 59.955618, this._generateFakeBlocks("0"), this._randomBool()),
-        new Station("1", "Гусиноозерская ГРЭС","gres", this._fakeStationIndicators, 51.298905, 106.484128, this._generateFakeBlocks("1"), this._randomBool()),
-        new Station("2", "Джубгинская ТЭС","tes", this._fakeStationIndicators, 44.426183, 38.781969, this._generateFakeBlocks("2"), this._randomBool()),
-        new Station("3", "Ивановские ПГУ","gres", this._fakeStationIndicators, 57.025899, 40.377292, this._generateFakeBlocks("3"), this._randomBool()),
-        new Station("4", "Ириклинская ГРЭС","gres", this._fakeStationIndicators, 51.753467, 58.807485, this._generateFakeBlocks("4"), this._randomBool()),
-        new Station("5", "Калининградская ТЭЦ-2","tec", this._fakeStationIndicators, 54.663006, 20.578134, this._generateFakeBlocks("5"), this._randomBool()),
-        new Station("6", "Каширская ГРЭС","gres", this._fakeStationIndicators, 54.855943, 38.252840, this._generateFakeBlocks("6"), this._randomBool()),
-        new Station("7", "Костромская ГРЭС","gres", this._fakeStationIndicators, 57.459501, 41.174551, this._generateFakeBlocks("7"), this._randomBool()),
-        new Station("8", "Маяковская ТЭС","tes", this._fakeStationIndicators, 54.568520, 22.177649, this._generateFakeBlocks("8"), this._randomBool()),
-        new Station("9", "Нижневартовкая ГРЭС","gres", this._fakeStationIndicators, 60.956604, 76.885784, this._generateFakeBlocks("9"), this._randomBool()),
-        new Station("10", "Пермская ГРЭС","gres", this._fakeStationIndicators, 58.493975, 56.352177, this._generateFakeBlocks("10"), this._randomBool()),
-        new Station("11", "Прегольская ТЭС","tes", this._fakeStationIndicators, 54.709989, 20.479101, this._generateFakeBlocks("11"), this._randomBool()),
-        new Station("12", "Печорская ГРЭС","gres", this._fakeStationIndicators, 57.821777, 27.603664, this._generateFakeBlocks("12"), this._randomBool()),
-        new Station("13", "Северо-Западная ТЭЦ","tec", this._fakeStationIndicators, 60.016742, 30.099479, this._generateFakeBlocks("13"), this._randomBool()),
-        new Station("14", "Сочинская ТЭС","tes", this._fakeStationIndicators, 43.594350, 39.754063, this._generateFakeBlocks("14"), this._randomBool()),
-        new Station("15", "Талаховская ТЭС","tes", this._fakeStationIndicators, 55.094389, 21.801083, this._generateFakeBlocks("15"), this._randomBool()),
-        new Station("16", "Уренгойская ГРЭС","gres", this._fakeStationIndicators, 66.032602, 78.078134, this._generateFakeBlocks("16"), this._randomBool()),
-        new Station("17", "Харанорская ГРЭС","gres", this._fakeStationIndicators, 50.853437, 115.700195, this._generateFakeBlocks("17"), this._randomBool()),
-        new Station("18", "Черепетская ГРЭС","gres", this._fakeStationIndicators, 54.135232, 36.473949, this._generateFakeBlocks("18"), this._randomBool()),
-        new Station("19", "Южноуральская ГРЭС","gres", this._fakeStationIndicators, 54.451273, 61.256371, this._generateFakeBlocks("19"), this._randomBool()),
-        new Station("20", "Южноуральская ГРЭС-2","gres", this._fakeStationIndicators, 54.466615, 61.204141, this._generateFakeBlocks("20"), this._randomBool())
+        new Station("0", "Верхнетагильская ГРЭС","gres", this._fakeStationIndicators, 57.357129, 59.955618, this._generateFakeBlocks("0")),
+        new Station("1", "Гусиноозерская ГРЭС","gres", this._fakeStationIndicators, 51.298905, 106.484128, this._generateFakeBlocks("1")),
+        new Station("2", "Джубгинская ТЭС","tes", this._fakeStationIndicators, 44.426183, 38.781969, this._generateFakeBlocks("2")),
+        new Station("3", "Ивановские ПГУ","gres", this._fakeStationIndicators, 57.025899, 40.377292, this._generateFakeBlocks("3")),
+        new Station("4", "Ириклинская ГРЭС","gres", this._fakeStationIndicators, 51.753467, 58.807485, this._generateFakeBlocks("4")),
+        new Station("5", "Калининградская ТЭЦ-2","tec", this._fakeStationIndicators, 54.663006, 20.578134, this._generateFakeBlocks("5")),
+        new Station("6", "Каширская ГРЭС","gres", this._fakeStationIndicators, 54.855943, 38.252840, this._generateFakeBlocks("6")),
+        new Station("7", "Костромская ГРЭС","gres", this._fakeStationIndicators, 57.459501, 41.174551, this._generateFakeBlocks("7")),
+        new Station("8", "Маяковская ТЭС","tes", this._fakeStationIndicators, 54.568520, 22.177649, this._generateFakeBlocks("8")),
+        new Station("9", "Нижневартовкая ГРЭС","gres", this._fakeStationIndicators, 60.956604, 76.885784, this._generateFakeBlocks("9")),
+        new Station("10", "Пермская ГРЭС","gres", this._fakeStationIndicators, 58.493975, 56.352177, this._generateFakeBlocks("10")),
+        new Station("11", "Прегольская ТЭС","tes", this._fakeStationIndicators, 54.709989, 20.479101, this._generateFakeBlocks("11")),
+        new Station("12", "Печорская ГРЭС","gres", this._fakeStationIndicators, 57.821777, 27.603664, this._generateFakeBlocks("12")),
+        new Station("13", "Северо-Западная ТЭЦ","tec", this._fakeStationIndicators, 60.016742, 30.099479, this._generateFakeBlocks("13")),
+        new Station("14", "Сочинская ТЭС","tes", this._fakeStationIndicators, 43.594350, 39.754063, this._generateFakeBlocks("14")),
+        new Station("15", "Талаховская ТЭС","tes", this._fakeStationIndicators, 55.094389, 21.801083, this._generateFakeBlocks("15")),
+        new Station("16", "Уренгойская ГРЭС","gres", this._fakeStationIndicators, 66.032602, 78.078134, this._generateFakeBlocks("16")),
+        new Station("17", "Харанорская ГРЭС","gres", this._fakeStationIndicators, 50.853437, 115.700195, this._generateFakeBlocks("17")),
+        new Station("18", "Черепетская ГРЭС","gres", this._fakeStationIndicators, 54.135232, 36.473949, this._generateFakeBlocks("18")),
+        new Station("19", "Южноуральская ГРЭС","gres", this._fakeStationIndicators, 54.451273, 61.256371, this._generateFakeBlocks("19")),
+        new Station("20", "Южноуральская ГРЭС-2","gres", this._fakeStationIndicators, 54.466615, 61.204141, this._generateFakeBlocks("20"))
     ];
 
     private _timeOutPromise<T>(data: T, timeout: number) : Promise<T> {
