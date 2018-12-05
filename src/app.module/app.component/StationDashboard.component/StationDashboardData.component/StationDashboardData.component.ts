@@ -19,6 +19,7 @@ import { MatTableDataSource } from '@angular/material';
 export class StationDashboardData { 
     @Input() Object: BaseStationObject;
     @Input() Date: Date;
+    @Input() Period: Period;
 
     private _generateOptions() : CustomSelectOption[]{
         return this.Object.Indicators.map((x) =>
@@ -68,6 +69,9 @@ export class StationDashboardData {
     }
 
     public async CardClick(card: InfoCard<Indicator>){
+        if(this._curCard === card)
+            return;
+
         if(this._curCard)
             this._curCard.Active = false;
 
@@ -78,7 +82,7 @@ export class StationDashboardData {
 
     public async RefreshData(){
         let loadedData = await
-            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date); 
+            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date, this.Period); 
         if(loadedData instanceof StationObjectIndicatorValues){
             this._data = this._generateCards(loadedData);
             this._dataType = "cards";

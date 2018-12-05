@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { InfoCard } from "../../models/InfoCard"
 import { DataService } from '../../services/Abstract/DataService';
 import { FakeDateService } from '../../services/FakeDataService';
@@ -7,6 +7,7 @@ import { FakeDateService } from '../../services/FakeDataService';
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.less'],
+    encapsulation: ViewEncapsulation.None,
     providers: [
         {provide: DataService, useClass: FakeDateService}
     ]

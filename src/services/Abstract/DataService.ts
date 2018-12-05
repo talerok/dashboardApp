@@ -10,7 +10,7 @@ export abstract class DataService{
     abstract async GetAllStationIndicators() :  Promise<Indicator[]>; 
     abstract async GetAllStationsData(indicator : Indicator, date: Date) :  Promise<IndicatorValue<Station>[]>; 
     abstract async GetStations() : Promise<Station[]>;
-    abstract async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date):  Promise<any>;
+    abstract async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date, period: Period):  Promise<any>;
     abstract async GetDataFromPeriod(object: BaseStationObject, indicator: Indicator, date: Date, period: Period) : Promise<MultiIndicatorValue>;
     abstract async GetBlockCollection(blocks: StationBlock[]) : Promise<BlockCollection>;
 

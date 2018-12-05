@@ -32,7 +32,7 @@ export class FakeDateService implements DataService {
     }
 
     private _fakeStationIndicators: Indicator[] = [
-        new Indicator("2", "Генерация/Электрогенерация", "", "energy"),
+        new Indicator("2", "Электрогенерация", "", "lightning"),
         new Indicator("3", "Топливо",  "", "fuel"),
         new Indicator("11", "Изменение состава оборудования", "", "table")
     ];
@@ -43,13 +43,13 @@ export class FakeDateService implements DataService {
     ];
 
     private _fakeEnergyIndicators : Indicator[] = [
-        new Indicator("4", "Установленная тепловая мощность", "МВт", "energy"),
-        new Indicator("5", "Текущая мощность", "МВт", "energy"),
-        new Indicator("6", "Текущая активная мощность", "МВт", "energy"),
-        new Indicator("7", "Удельный расход условного топлива на выработку электроэнергии", "г/кВТ*ч", "energy"),
-        new Indicator("8", "Выработано электроэнергии", "млн. КВт*ч", "energy"),
-        new Indicator("9", "Отпущено электроэнергии с шин", "млн. КВт*ч", "energy"),
-        new Indicator("10", "Потребление электроэнергии на собственные нужды", "млн. КВт*ч", "energy")
+        new Indicator("4", "Установленная тепловая мощность", "МВт", "lightning"),
+        new Indicator("5", "Текущая мощность", "МВт", "lightning"),
+        new Indicator("6", "Текущая активная мощность", "МВт", "lightning"),
+        new Indicator("7", "Удельный расход условного топлива на выработку электроэнергии", "г/кВТ*ч", "lightning"),
+        new Indicator("8", "Выработано электроэнергии", "млн. КВт*ч", "lightning"),
+        new Indicator("9", "Отпущено электроэнергии с шин", "млн. КВт*ч", "lightning"),
+        new Indicator("10", "Потребление электроэнергии на собственные нужды", "млн. КВт*ч", "lightning")
     ];
 
     private _fakeFuelIndicators : Indicator[] = [
@@ -72,7 +72,7 @@ export class FakeDateService implements DataService {
         new Station("0", "Верхнетагильская ГРЭС","gres", this._fakeStationIndicators, 57.357129, 59.955618, this._generateFakeBlocks("0")),
         new Station("1", "Гусиноозерская ГРЭС","gres", this._fakeStationIndicators, 51.298905, 106.484128, this._generateFakeBlocks("1")),
         new Station("2", "Джубгинская ТЭС","tes", this._fakeStationIndicators, 44.426183, 38.781969, this._generateFakeBlocks("2")),
-        new Station("3", "Ивановские ПГУ","gres", this._fakeStationIndicators, 57.025899, 40.377292, this._generateFakeBlocks("3")),
+        new Station("3", "Ивановские ПГУ","pgu", this._fakeStationIndicators, 57.025899, 40.377292, this._generateFakeBlocks("3")),
         new Station("4", "Ириклинская ГРЭС","gres", this._fakeStationIndicators, 51.753467, 58.807485, this._generateFakeBlocks("4")),
         new Station("5", "Калининградская ТЭЦ-2","tec", this._fakeStationIndicators, 54.663006, 20.578134, this._generateFakeBlocks("5")),
         new Station("6", "Каширская ГРЭС","gres", this._fakeStationIndicators, 54.855943, 38.252840, this._generateFakeBlocks("6")),
@@ -161,7 +161,7 @@ export class FakeDateService implements DataService {
        return new StationObjectIndicatorValues(res);
     }
 
-    public async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date):  Promise<any> {
+    public async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date, period: Period):  Promise<any> {
 
         if(indicator === this._fakeStationIndicators[2] && (object instanceof Station || object instanceof BlockCollection))
             return this._timeOutPromise<StateTable>(this._generateFakeTableData(object), this._timeout);

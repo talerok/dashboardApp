@@ -1,11 +1,21 @@
 <div class='date-time-picker'>
-    <div class='current-datetime' (click)='_isOpen=!_isOpen'>
+    <div class='current-datetime' (click)='_titleClick()'>
         <input-wrapper [Icon]='"icon-calendar"' [Description]='_getDate(Value)' [Additional]='_getTime(Value)' [HasAttachments]='true'> </input-wrapper>
     </div>
     <div class='body' [hidden]='!_isOpen' >
-        <mat-calendar [(selected)]='Date'></mat-calendar>
+        
+        <div class='date-picker' [ngSwitch]="_datePickerMode">
+            <div class='date-picker-header'>
+                <button class='back' (click) = "_goToPrevDateView()"></button>
+                <button class='prev' (click) = "_prevDatePeriodView()"></button>
+                <button class='next' (click) = "_nextDatePeriodView()"></button>
+            </div>
+            <mat-multi-year-view *ngSwitchCase="'year'" [activeDate]='_activeDate' [(selected)]='Date' (selectedChange)="_goToNextDateView()"></mat-multi-year-view>
+            <mat-year-view *ngSwitchCase="'month'" [activeDate]='_activeDate' [(selected)]='Date' (selectedChange)="_goToNextDateView()"></mat-year-view>
+            <mat-month-view *ngSwitchCase="'day'" [activeDate]='_activeDate' [(selected)]='Date' (selectedChange)="_goToNextDateView()"></mat-month-view>
+        </div>
 
-        <div class='time-picker'>
+        <div class='time-picker' *ngIf='Type == 0 &&  _datePickerMode === "day"'>
             <div class='counter'>
                 <button class='increase' (click)='_increaseHour()'></button>
                 <div class='value'>

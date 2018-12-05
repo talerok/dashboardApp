@@ -21,7 +21,7 @@ export class StationDashboard {
         new CustomSelectOption("icon-period", "Ежегодично", "", Period.Year),
     ];
 
-    public CurPeriod = Period.Month;
+    public CurPeriod = Period.Day;
 
     public StationOptions : CustomSelectOption[] = [];
 
