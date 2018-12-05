@@ -77,7 +77,7 @@ export class StationMap {
 
         if(this.Selected){
             let station = this.Selected.indicatorValue.Object as Station;
-            this._map.setView([station.XCord, station.YCord], 5);
+            this._map.setView([station.XCord, station.YCord], 6);
         }
     }
 

@@ -28,7 +28,7 @@
 			</ng-scrollbar>
 		</div>
 		<div class='map'>
-			<station-map [Value]='Cards' [Selected]='_activeCard' (MarkerClick)='GoToStationDashboard($event)'></station-map>
+			<station-map [Value]='Cards' [Selected]='_activeCard' (MarkerClick)='_mapIconClick($event)'></station-map>
 		</div>
 	</div>
 

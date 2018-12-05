@@ -16,12 +16,19 @@ export class MainDashboard {
 
     private _mode: string;
 
-    public GoToStationDashboard(info: InfoCard<Station>) : void{
-        this._router.navigate(["/station", info.indicatorValue.Object.Id]);
-    }
-
     public MapCardClick(info: InfoCard<Station>) : void{
         this._activeCard = info;
+    }
+
+    private _mapIconClick(info: InfoCard<Station>){
+        if(info === this._activeCard)
+            this.GoToStationDashboard(info);
+        else
+            this._activeCard = info;
+    }
+
+    public GoToStationDashboard(info: InfoCard<Station>) : void{
+        this._router.navigate(["/station", info.indicatorValue.Object.Id]);
     }
 
     public Indicators: Indicator[] = [];
