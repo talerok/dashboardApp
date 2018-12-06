@@ -11,7 +11,7 @@ import { StateTableRow, StateTable } from "../models/StateTable";
 import { StationObjectIndicatorValues } from "../models/StationObjectIndicatorValues"
 
 @Injectable()
-export class FakeDateService implements DataService {
+export class FakeDataService implements DataService {
 
     public LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -34,7 +34,7 @@ export class FakeDateService implements DataService {
     private _fakeStationIndicators: Indicator[] = [
         new Indicator("2", "Электрогенерация", "", "lightning"),
         new Indicator("3", "Топливо",  "", "fuel"),
-        new Indicator("11", "Изменение состава оборудования", "", "table")
+        new Indicator("11", "Изменение состава оборудования", "", "repair")
     ];
 
     private _fakeBlocksIndicators: Indicator[] = [

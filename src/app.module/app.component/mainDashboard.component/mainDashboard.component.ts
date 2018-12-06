@@ -66,6 +66,9 @@ export class MainDashboard {
     private _activeCard: InfoCard<Station>;
 
     public async RefreshData(){
+        if(!this.CurIndicator)
+            return;
+            
         this.Cards = (await this._dataService.GetAllStationsData(this.CurIndicator, this.CurDate)).map((x) => {
             return new InfoCard(x.Object.Name,x.Object.Type,this.CurIndicator, x);
         });
@@ -92,6 +95,8 @@ export class MainDashboard {
         });
 
         this._dataService.GetAllStationIndicators().then((res) =>{
+            if(!res.length)
+                return;
             this.Indicators = res;
             this.CurIndicator = res[0];
             this.IndicatorOptions = this._generateOptions(this.Indicators);

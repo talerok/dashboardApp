@@ -161,7 +161,7 @@ export class DateTimePicker {
     }
 
     private _setStartDateView(){
-        this._activeDate = this.Date;
+        this._activeDate = this.Value;
         switch(this.Type){
             case Period.Day:
                 this._datePickerMode = 'day';

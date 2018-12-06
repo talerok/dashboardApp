@@ -37,8 +37,13 @@ export class StationDashboardData {
     private _curCard: InfoCard<Indicator>;
 
     ngOnChanges(changes: SimpleChanges) {
-        this._indicatorOptions = this._generateOptions();
-        this._curIndicator = this._indicatorOptions[0].Value;
+
+        if(changes.Object){
+            this._indicatorOptions = this._generateOptions();
+            this._curIndicator = this._indicatorOptions[0].Value;
+        }
+        if(changes.Period)
+            this._charPeriod = this.Period;
         this.RefreshData();
     }
 
@@ -47,14 +52,13 @@ export class StationDashboardData {
     }
 
     private _resetChart(){
-        this._charPeriod = Period.Day;
         this._chartData = null;
     }
 
     private _resetCards(){
         if(this._curCard)
             this._curCard.Active = false;
-        this._curCard = null;
+        this._curCard = null;   
     }
 
     private _resetDashboard(){
@@ -80,22 +84,43 @@ export class StationDashboardData {
         this._refreshChart();
     }
 
+    private _initCardList(loadedData: StationObjectIndicatorValues){
+        this._data = this._generateCards(loadedData);
+            this._dataType = "cards";
+            if(this._curCard){
+                let newActiveCard = (this._data as InfoCard<Indicator>[]).find(x => x.indicator.Id === this._curCard.indicator.Id);
+                this._resetCards();
+                if(newActiveCard){
+                    this._curCard = newActiveCard;
+                    this._curCard.Active = true;
+                    this._refreshChart();
+                }else
+                    this._resetChart();
+            }else{
+                this._resetDashboard();
+            }
+    }
+
+    private _initTable(loadedData: StateTable){
+        this._data = loadedData;
+        this._dataType = "stateTable";
+        this._resetDashboard();
+    }
+
+    private _resetView(){
+        this._dataType = null;
+        this._data = null;
+    }
+
     public async RefreshData(){
         let loadedData = await
             this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date, this.Period); 
-        if(loadedData instanceof StationObjectIndicatorValues){
-            this._data = this._generateCards(loadedData);
-            this._dataType = "cards";
-        }
-        else if(loadedData instanceof StateTable){
-            this._data = loadedData;
-            this._dataType = "stateTable";
-        }
-        else{
-            this._dataType = null;
-            this._data = null;
-        }
-        this._resetDashboard();
+        if(loadedData instanceof StationObjectIndicatorValues)
+            this._initCardList(loadedData);
+        else if(loadedData instanceof StateTable)
+            this._initTable(loadedData);
+        else
+            this._resetView();
     }
 
     private _setChartPeriod(period: Period){
