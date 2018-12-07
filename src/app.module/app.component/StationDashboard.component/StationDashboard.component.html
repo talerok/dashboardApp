@@ -9,7 +9,7 @@
 		<div class='period-select'>
 				<custom-select [(Value)]='CurPeriod' [Options]='PeriodOptions'></custom-select>
 		</div>
-		<div class='date-time-picker'>
+		<div class='date-time-picker' *ngIf='Date'>
 			<datetime-picker [(Value)]='Date' (ValueChange)='_reloadPage()' [Type]='CurPeriod'></datetime-picker>	
 		</div>
 	</div>

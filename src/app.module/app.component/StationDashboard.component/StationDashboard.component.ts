@@ -15,7 +15,7 @@ import { IndicatorInfo } from '../../../models/Indicator';
     styleUrls: ['./StationDashboard.component.less'],
 })
 export class StationDashboard { 
-    public Date: Date = new Date();
+    public Date: Date;
 
     public PeriodOptions : CustomSelectOption[] = [
         new CustomSelectOption("icon-period", "Ежедневно", "", Period.Day),
