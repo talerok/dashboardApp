@@ -32,9 +32,9 @@ export class FakeDataService implements DataService {
     }
 
     private _fakeStationIndicators: Indicator[] = [
-        new Indicator("2", "Электрогенерация", "", "lightning"),
-        new Indicator("3", "Топливо",  "", "fuel"),
-        new Indicator("11", "Изменение состава оборудования", "", "repair")
+        new Indicator("2", "Электрогенерация", "", "lightning", null),
+        new Indicator("3", "Топливо",  "", "fuel", null),
+        new Indicator("11", "Изменение состава оборудования", "", "repair", null)
     ];
 
     private _fakeBlocksIndicators: Indicator[] = [
@@ -43,23 +43,23 @@ export class FakeDataService implements DataService {
     ];
 
     private _fakeEnergyIndicators : Indicator[] = [
-        new Indicator("4", "Установленная тепловая мощность", "МВт", "lightning"),
-        new Indicator("5", "Текущая мощность", "МВт", "lightning"),
-        new Indicator("6", "Текущая активная мощность", "МВт", "lightning"),
-        new Indicator("7", "Удельный расход условного топлива на выработку электроэнергии", "г/кВТ*ч", "lightning"),
-        new Indicator("8", "Выработано электроэнергии", "млн. КВт*ч", "lightning"),
-        new Indicator("9", "Отпущено электроэнергии с шин", "млн. КВт*ч", "lightning"),
-        new Indicator("10", "Потребление электроэнергии на собственные нужды", "млн. КВт*ч", "lightning")
+        new Indicator("4", "2", "Установленная тепловая мощность", "МВт", "lightning"),
+        new Indicator("5", "2", "Текущая мощность", "МВт", "lightning"),
+        new Indicator("6", "2", "Текущая активная мощность", "МВт", "lightning"),
+        new Indicator("7", "2", "Удельный расход условного топлива на выработку электроэнергии", "г/кВТ*ч", "lightning"),
+        new Indicator("8", "2", "Выработано электроэнергии", "млн. КВт*ч", "lightning"),
+        new Indicator("9", "2", "Отпущено электроэнергии с шин", "млн. КВт*ч", "lightning"),
+        new Indicator("10", "2","Потребление электроэнергии на собственные нужды", "млн. КВт*ч", "lightning")
     ];
 
     private _fakeFuelIndicators : Indicator[] = [
-        new Indicator("10", "Расход газа", "тыс.м<sup>3</sup>", "fuel"),
-        new Indicator("11", "Расход угля", "тонн", "fuel"),
-        new Indicator("12", "Расход дизельного топлива", "тонн", "fuel"),
-        new Indicator("13", "Расход мазута", "тонн", "fuel"),
-        new Indicator("14", "Запас угля", "тыс. тонн", "fuel"),
-        new Indicator("15", "Запас дизельного топлива", "тыс. тонн", "fuel"),
-        new Indicator("16", "Запас мазута", "тыс. тонн", "fuel")
+        new Indicator("10", "3", "Расход газа", "тыс.м<sup>3</sup>", "fuel"),
+        new Indicator("11", "3", "Расход угля", "тонн", "fuel"),
+        new Indicator("12", "3", "Расход дизельного топлива", "тонн", "fuel"),
+        new Indicator("13", "3", "Расход мазута", "тонн", "fuel"),
+        new Indicator("14", "3", "Запас угля", "тыс. тонн", "fuel"),
+        new Indicator("15", "3", "Запас дизельного топлива", "тыс. тонн", "fuel"),
+        new Indicator("16", "3", "Запас мазута", "тыс. тонн", "fuel")
     ];
 
     private _fakeIndicators: Indicator[] = this._fakeEnergyIndicators.concat(this._fakeFuelIndicators);

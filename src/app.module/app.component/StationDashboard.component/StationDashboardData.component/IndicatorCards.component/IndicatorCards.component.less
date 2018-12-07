@@ -1,0 +1,48 @@
+@import "../../../../commonStyle.less";
+
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .card{
+        width: calc(25% - 2px);
+        flex: none;
+        border: 0;
+        border-bottom: 2px;
+        border-right: 2px;
+        border-style: solid;
+        border-color: @backgroundColor;
+        &:nth-child(4n){
+            border-right: 0px;
+        }
+
+    }
+}
+    
+@media (max-width: 1400px) {
+    .cards{
+        .card{
+            width: calc(50% - 1px);
+
+            &:nth-child(2n){
+                border-right: 0px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .cards{
+        .card{
+            width: 100%;
+            border-bottom: 2px;
+            border-right: 0px;
+            &:last-child{
+                border-bottom: 0px;
+            }
+
+        }
+    }
+}
+     

@@ -6,6 +6,7 @@ import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { DataService } from '../../../services/Abstract/DataService';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ConvertService } from '../../../services/ConvertService';
 
 @Component({
     selector: 'main-dashboard',
@@ -28,7 +29,7 @@ export class MainDashboard {
     }
 
     public GoToStationDashboard(info: InfoCard<Station>) : void{
-        this._router.navigate(["/station", info.indicatorValue.Object.Id]);
+        this._router.navigate(["/station", info.indicatorValue.Object.Id,  this._converService.NavigationDateString(this.CurDate), this.CurIndicator.ParentId, this.CurIndicator.Id]);
     }
 
     public Indicators: Indicator[] = [];
@@ -61,7 +62,7 @@ export class MainDashboard {
           }, 0);  
     }
 
-    public CurDate : Date = new Date();
+    public CurDate : Date = new Date("11-30-2018");
 
     private _activeCard: InfoCard<Station>;
 
@@ -77,7 +78,7 @@ export class MainDashboard {
 
     private _modeSubscription: Subscription;
 
-    constructor(private _dataService : DataService, private _router: Router, private _activateRoute: ActivatedRoute){
+    constructor(private _dataService : DataService, private _router: Router, private _activateRoute: ActivatedRoute, private _converService: ConvertService){
 
         this._modeSubscription = _activateRoute.params.subscribe(params=> {
             if(!params['mode']){

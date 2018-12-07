@@ -9,6 +9,7 @@ import { InfoCard } from "../../../models/InfoCard"
 })
 export class InfoCardComponent { 
     @Input() public Data : InfoCard<any> = null;
+    @Input() public Active: boolean = false;
     @Input() public AltStyle : string = '';
 
     public GetValueCompareClass(value : number) : string {

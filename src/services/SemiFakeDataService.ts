@@ -84,7 +84,7 @@ export class SemiFakeDateService implements DataService {
             return this._indicatorGroups;
         else
             try{
-                return await this._get("indicatorgroups").then(data => data.map((x: any) => new Indicator(x.indicatorGroupID, x.indicatorGroupName, "", x.indicatorType)));
+                return await this._get("indicatorgroups").then(data => data.map((x: any) => new Indicator(x.indicatorGroupID, null, x.indicatorGroupName, "", x.indicatorType)));
             }catch(ex){
                 console.log(ex);
                 return [];
@@ -94,7 +94,7 @@ export class SemiFakeDateService implements DataService {
 
     async GetAllStationIndicators() :  Promise<Indicator[]>{
         try{
-            return this._get("indicators").then(data => data.map((x : any) => new Indicator(x.indicatorID, x.indicatorName, x.unitMeasure, x.indicatorType)));
+            return this._get("indicators").then(data => data.map((x : any) => new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
         }catch(ex){
             console.log(ex);
             return [];
@@ -140,7 +140,7 @@ export class SemiFakeDateService implements DataService {
                         x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,  
                         x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0, 
                         this._converIndicatorStatus(x.indicatorStatus), 
-                        new Indicator(x.indicatorID, x.indicatorName, x.unitMeasure, x.indicatorType)));
+                        new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
                     return new StationObjectIndicatorValues(res);
                 }
             );

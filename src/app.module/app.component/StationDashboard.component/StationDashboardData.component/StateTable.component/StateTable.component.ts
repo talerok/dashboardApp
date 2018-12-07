@@ -8,7 +8,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
     styleUrls: ['./StateTable.component.less'],
 })
 export class StateTableComponent { 
-    @Input() Value: StateTable;
+    @Input() Data: StateTable;
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     private _dataSource: MatTableDataSource<StateTableRow>
@@ -42,9 +42,9 @@ export class StateTableComponent {
       }
 
     ngOnChanges(changes: SimpleChanges) {
-        if(!this.Value)
+        if(!this.Data)
             return;
-        this._dataSource = new MatTableDataSource(this.Value.Rows);
+        this._dataSource = new MatTableDataSource(this.Data.Rows);
         this._dataSource.paginator = this.paginator;
     }
 

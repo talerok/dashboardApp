@@ -153,7 +153,13 @@ export class DateTimePicker {
         this.ValueChange.emit(this.Value);
     }
 
-    constructor(private _elementRef : ElementRef) {}
+    //minutes
+    private _timeOffset: number;
+
+    constructor(private _elementRef : ElementRef) {
+        this._timeOffset = new Date().getTimezoneOffset();
+
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         this.Date = this.Value;

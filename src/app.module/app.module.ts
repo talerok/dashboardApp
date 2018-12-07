@@ -22,8 +22,12 @@ import { Menu } from './app.component/Menu.component/Menu.component';
 import { IndicatorChart } from './app.component/IndicatorChart.component/IndicatorChart.component';
 import { StationMap } from './app.component/StationMap.component/StationMap.component';
 import { StateTableComponent } from './app.component/StationDashboard.component/StationDashboardData.component/StateTable.component/StateTable.component';
+import { IndicatorCardsTable } from './app.component/StationDashboard.component/StationDashboardData.component/IndicatorCards.component/IndicatorCards.component';
 
 const appRoutes: Routes =[
+    { path: 'station/:id/:date/:indicatorGroupId/:indicatorId', component: StationDashboard },
+    { path: 'station/:id/:date/:indicatorGroupId', component: StationDashboard },
+    { path: 'station/:id/:date', component: StationDashboard },
     { path: 'station/:id', component: StationDashboard },
     { path: 'station', component: StationDashboard },
     { path: 'main/:mode', component: MainDashboard},
@@ -32,7 +36,7 @@ const appRoutes: Routes =[
 
 @NgModule({
     imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes), NgScrollbarModule, HttpClientModule],
-    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap, StateTableComponent ],
+    declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap, StateTableComponent, IndicatorCardsTable ],
     bootstrap:    [ AppComponent ],
     providers: [
         {provide: LOCALE_ID, useValue: 'ru-RU'},

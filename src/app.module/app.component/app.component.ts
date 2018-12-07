@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { InfoCard } from "../../models/InfoCard"
 import { DataService } from '../../services/Abstract/DataService';
 import { SemiFakeDateService } from '../../services/SemiFakeDataService';
+import { ConvertService } from './../../services/ConvertService';
 
 @Component({
     selector: 'app',
@@ -9,7 +10,8 @@ import { SemiFakeDateService } from '../../services/SemiFakeDataService';
     styleUrls: ['./app.component.less'],
     encapsulation: ViewEncapsulation.None,
     providers: [
-        {provide: DataService, useClass: SemiFakeDateService}
+        {provide: DataService, useClass: SemiFakeDateService},
+        ConvertService
     ]
 })
 export class AppComponent { 

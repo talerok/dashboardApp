@@ -1,32 +1,31 @@
 <div class='station-dashboard-data'>
 	<div class='body'>
 		<div class='data-panel'>
-			<div class='name'>{{_getName()}}</div>
+			<div class='name'>{{_getObjectName()}}</div>
 			<div class='indicators'>
-				<custom-select *ngIf='_curIndicator' [(Value)]='_curIndicator' (ValueChange)='RefreshData()' [Options]='_indicatorOptions'></custom-select>
+				<custom-select *ngIf='_curIndicatorGroup' [(Value)]='_curIndicatorGroup' (ValueChange)='_indicatorGroupChange($event)' [Options]='_indicatorOptions'></custom-select>
 			</div>
 		</div>
 
-
-		<div class='cards' *ngIf='_dataType == "cards"'>
-			<div *ngFor='let card of _data' class='card'>
-				<info-card [Data]="card" (click)='CardClick(card)'></info-card>
+		<div [ngSwitch]="_activeView()"> 
+			<div class='cards' *ngSwitchCase="'indicators'">
+				<indicator-cards-table [Data]='_data' [ActiveIndicator]='_curIndicator' (CardClick)='_cardClick($event)'></indicator-cards-table>
 			</div>
-		</div>
-		
-		<div class='stateTable' *ngIf='_dataType === "stateTable"'>
-			<state-table [Value]='_data'></state-table>
-		</div>
+			
+			<div class='stateTable' *ngSwitchCase="'state-table'">
+				<state-table [Data]='_data'></state-table>
+			</div>
 
-		<div class='gantChart' *ngIf='_dataType === "gantChart"'>
+			<div class='gantChart' *ngSwitchCase="'gant'">
 
+			</div>
 		</div>
 	</div>
 
-	<div class='chart-container' *ngIf='_chartData && _curCard'>
+	<div class='chart-container' *ngIf='_chartData'>
 		<div class='chart-header'>
 			<div class='description'>
-				{{_curCard.name}}
+				{{_chartName}}
 			</div>
 			<div class='period'>
 				<button class='period-button {{_charPeriod == 0 ? "active" : ""}}' (click)='_setChartPeriod(0)'>день</button>

@@ -1,15 +1,16 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 import { CustomSelectOption } from '../../../../models/CustomSelectOption'
 import { Period } from '../../../../models/Period'
-import { Station, StationBlock, BaseStationObject } from '../../../../models/Station'
+import { Station, StationBlock, BaseStationObject, BlockCollection } from '../../../../models/Station'
 import { DataService } from '../../../../services/Abstract/DataService';
-import { CustomSelect } from '../../CustomSelect.component/CustomSelect.component';
-import { Indicator } from '../../../../models/Indicator';
+import { Indicator, IndicatorInfo } from '../../../../models/Indicator';
+import { IndicatorValue } from '../../../../models/IndicatorValue'
 import { InfoCard } from '../../../../models/InfoCard';
 import { MultiIndicatorValue } from '../../../../models/MultiIndicatorValue';
 import { StationObjectIndicatorValues } from '../../../../models/StationObjectIndicatorValues'
 import { StateTable, StateTableRow } from '../../../../models/StateTable';
 import { MatTableDataSource } from '@angular/material';
+
 
 @Component({
     selector: 'station-dashboard-data',
@@ -21,106 +22,75 @@ export class StationDashboardData {
     @Input() Date: Date;
     @Input() Period: Period;
 
+    @Input() IndicatorInfo: IndicatorInfo;
+    @Output() IndicatorInfoChange: EventEmitter<IndicatorInfo> = new EventEmitter<IndicatorInfo>(); 
+    private _curIndicatorGroup: Indicator;
+    private _curIndicator: Indicator;
+
+    private _indicatorOptions: CustomSelectOption[] = [];
+
+    private _chartData: MultiIndicatorValue;
+    private _charPeriod: Period;
+    private _chartName: string;
+
+    private _data: any;
+
     private _generateOptions() : CustomSelectOption[]{
         return this.Object.Indicators.map((x) =>
             new CustomSelectOption("icon-" + x.Type + "-neutral", x.Name, x.Unit, x));
     }
 
-    private _indicatorOptions: CustomSelectOption[];
-    private _curIndicator: Indicator;
-    
-    private _data: any;
-    private _dataType: string;
+    private refreshIndicatorGroup(){
+        if(this.IndicatorInfo.ParentId){
+            let indicator = this.Object.Indicators.find(x => x.Id === this.IndicatorInfo.ParentId);
+            this._curIndicatorGroup = indicator ? indicator : this.Object.Indicators[0];
+        }else{
+            if(this._curIndicatorGroup){
+                let indicator = this.Object.Indicators.find(x => x.Id === this._curIndicatorGroup.Id);
+                this._curIndicatorGroup = indicator ? indicator : this.Object.Indicators[0];
+            }else
+                this._curIndicatorGroup = this.Object.Indicators[0];
+        }
+    }
 
-    private _chartData: MultiIndicatorValue;
-    private _charPeriod: Period;
-    private _curCard: InfoCard<Indicator>;
+    private refreshIndicator(){
+        if(!(this._data instanceof StationObjectIndicatorValues) || !this._data.values.length){
+            this._curIndicator = null;
+            return;
+        }
+        var values = this._data.values;
+        if(this.IndicatorInfo.Id){
+            let val = values.find(x => x.Object.Id === this.IndicatorInfo.Id);
+            this._curIndicator = val ? val.Object : values[0].Object;
+        }else{
+            if(this._curIndicator){
+                let val = values.find(x => x.Object.Id === this._curIndicator.Id);
+                this._curIndicator = val ? val.Object : values[0].Object;
+            }else
+            this._curIndicator = values[0].Object;
+        }
+    }
 
     ngOnChanges(changes: SimpleChanges) {
-
-        if(changes.Object){
+        if(changes.Object)
             this._indicatorOptions = this._generateOptions();
-            this._curIndicator = this._indicatorOptions[0].Value;
-        }
+    
         if(changes.Period)
             this._charPeriod = this.Period;
-        this.RefreshData();
+            
+        this.refreshIndicatorGroup();
+        this._refreshData();
     }
 
-    private async _refreshChart(){
-        this._chartData = await this._dataSerice.GetDataFromPeriod(this.Object, this._curCard.indicator, this.Date, this._charPeriod);
-    }
-
-    private _resetChart(){
-        this._chartData = null;
-    }
-
-    private _resetCards(){
-        if(this._curCard)
-            this._curCard.Active = false;
-        this._curCard = null;   
-    }
-
-    private _resetDashboard(){
-        this._resetCards();
-        this._resetChart();
-    }
-
-    private _generateCards(soiv: StationObjectIndicatorValues) : InfoCard<Indicator>[]{
-        return soiv.values.map((x) =>
-            new InfoCard(x.Object.Name, "", x.Object, x)
-        );
-    }
-
-    public async CardClick(card: InfoCard<Indicator>){
-        if(this._curCard === card)
+    private async _refreshData(){
+        if(!this.Object || !this.Date || !this._curIndicatorGroup)
             return;
 
-        if(this._curCard)
-            this._curCard.Active = false;
+        this._data = await
+            this._dataSerice.GetStationObjectData(this.Object, this._curIndicatorGroup, this.Date, this.Period); 
+        this.refreshIndicator();
 
-        this._curCard = card;
-        this._curCard.Active = true;
         this._refreshChart();
-    }
-
-    private _initCardList(loadedData: StationObjectIndicatorValues){
-        this._data = this._generateCards(loadedData);
-            this._dataType = "cards";
-            if(this._curCard){
-                let newActiveCard = (this._data as InfoCard<Indicator>[]).find(x => x.indicator.Id === this._curCard.indicator.Id);
-                this._resetCards();
-                if(newActiveCard){
-                    this._curCard = newActiveCard;
-                    this._curCard.Active = true;
-                    this._refreshChart();
-                }else
-                    this._resetChart();
-            }else{
-                this._resetDashboard();
-            }
-    }
-
-    private _initTable(loadedData: StateTable){
-        this._data = loadedData;
-        this._dataType = "stateTable";
-        this._resetDashboard();
-    }
-
-    private _resetView(){
-        this._dataType = null;
-        this._data = null;
-    }
-
-    public async RefreshData(){
-        let loadedData = await
-            this._dataSerice.GetStationObjectData(this.Object, this._curIndicator, this.Date, this.Period); 
-        if(loadedData instanceof StationObjectIndicatorValues)
-            this._initCardList(loadedData);
-        else if(loadedData instanceof StateTable)
-            this._initTable(loadedData);
-        else
-            this._resetView();
     }
 
     private _setChartPeriod(period: Period){
@@ -130,8 +100,59 @@ export class StationDashboardData {
         this._refreshChart();
     }
 
-    private _getName() : string{
-        return this.Object ? (this.Object instanceof Station ? "Электростанция" : this.Object.Name) : "";
+    private _resetChart(){
+        this._chartData = null;
+        this._chartName = null;
+    }
+
+    private async _refreshChart(){
+        if(!(this._data instanceof StationObjectIndicatorValues) || !this._curIndicator){
+            this._resetChart();
+            return;
+        }
+            
+        this._chartData = await this._dataSerice.GetDataFromPeriod(this.Object, this._curIndicator, this.Date, this._charPeriod);
+        this._chartName = this._curIndicator.Name;
+        
+    }
+
+    private _activeView() :string {
+        if(this._data instanceof StationObjectIndicatorValues)
+            return "indicators";
+        else if(this._data instanceof StateTable)
+            return "state-table"
+        else
+            return "unknown";
+    }
+
+    private _getObjectName() : string{
+        if(this.Object instanceof Station)
+            return "Электростанция";
+        else if(this.Object instanceof StationBlock)
+            return this.Object.Name;
+        else if(this.Object instanceof BlockCollection)
+            return "Группа блоков";
+        else 
+            return "";
+    }
+
+    private _indicatorGroupChange(indicator: Indicator){
+        this._curIndicatorGroup = indicator;
+        this.refreshIndicator();
+        this.IndicatorInfoChange.emit(
+            new IndicatorInfo(this._curIndicator.Id, this._curIndicatorGroup.Id)
+        );
+    }
+
+    private _cardClick(card: InfoCard<Indicator>){
+        if(this._curIndicator === card.indicator)
+            return;
+
+        this._curIndicator = card.indicator;
+        this.IndicatorInfoChange.emit(
+            new IndicatorInfo(this._curIndicator.Id, this._curIndicatorGroup.Id)
+        );
+        this._refreshChart();
     }
 
     constructor(private _dataSerice: DataService){

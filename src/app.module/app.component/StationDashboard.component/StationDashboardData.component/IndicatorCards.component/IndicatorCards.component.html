@@ -1,0 +1,8 @@
+
+<div class='cards' *ngIf='_cards'>
+	<div *ngFor='let card of _cards' class='card'>
+		<info-card [Data]="card" (click)=' _cardClick(card)' [Active]="card.indicator === ActiveIndicator" ></info-card>
+	</div>
+</div>
+
+

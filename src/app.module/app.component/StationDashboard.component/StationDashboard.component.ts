@@ -3,9 +3,11 @@ import { CustomSelectOption } from '../../../models/CustomSelectOption'
 import { Period } from '../../../models/Period'
 import { Station, BaseStationObject, StationBlock, BlockCollection } from '../../../models/Station'
 import { DataService } from '../../../services/Abstract/DataService';
+import { ConvertService } from '../../../services/ConvertService'
 
 import { ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import { IndicatorInfo } from '../../../models/Indicator';
 
 @Component({
     selector: 'station-dashboard',
@@ -23,17 +25,18 @@ export class StationDashboard {
 
     public CurPeriod = Period.Day;
 
-    public StationOptions : CustomSelectOption[] = [];
+    public StationOptions : CustomSelectOption[];
 
     public CurStation: Station;
     public CurObject: BaseStationObject;
 
     private _urlSubscription: Subscription;
-    private _urlStationId : string;
+
+    private _indicatorInfo: IndicatorInfo;
 
     private _getActiveStationById(id: string) : Station{
         let option = this.StationOptions.find((x) => x.Value.Id === id);
-        return option ? option.Value : (this.StationOptions.length ? this.StationOptions[0].Value : null);
+        return option ? option.Value : (this.StationOptions ? this.StationOptions[0].Value : null);
     }
 
     private _setActiveStation(station: Station){
@@ -41,8 +44,8 @@ export class StationDashboard {
         this.CurObject = station;
     }
 
-    private _setActiveStationById(){
-        let station = this._getActiveStationById(this._urlStationId);
+    private _setActiveStationById(urlStationId: string){
+        let station = this._getActiveStationById(urlStationId);
         if(!station)
             return;
         this._setActiveStation(station);
@@ -109,22 +112,39 @@ export class StationDashboard {
         this.CurObject = object;
     }
 
-    //------------------------------------
-    constructor(private _dataSerice: DataService, private _activateRoute: ActivatedRoute, private _router: Router){
-        this._urlSubscription = _activateRoute.params.subscribe(params=>{
-            this._urlStationId = params['id'];
-            this._setActiveStationById();
-        });
-
-        _dataSerice.GetStations().then((x) => {
-                this.StationOptions = x.map((i) => new CustomSelectOption("icon-" + i.Type + "-neutral", i.Name, "", i));
-                this._setActiveStationById();
-            }
-        )
+    private async _getStationOptions(){
+        return this._dataSerice.GetStations().then(x => x.map((i) => new CustomSelectOption("icon-" + i.Type + "-neutral", i.Name, "", i)));
     }
 
-    private _onStationChange(){
-        this._router.navigate(["/station", this.CurStation.Id]);
+    private _indicatorChange(){
+        this._reloadPage();
+    }
+
+    private async _onReloadPage(stationId: string, date: string, indicatorGroupId: string, indicatorId: string){
+        if(!this.StationOptions)
+            this.StationOptions = await this._getStationOptions();
+        let newDate = new Date(date);
+        if(newDate != this.Date)
+            this.Date = !isNaN(newDate.getTime()) ? newDate : new Date();
+        if(!this.CurStation || this.CurStation.Id !== stationId)
+            this._setActiveStationById(stationId);
+        if(!this._indicatorInfo || this._indicatorInfo.Id != indicatorId || this._indicatorInfo.ParentId != indicatorGroupId)
+            this._indicatorInfo = new IndicatorInfo(indicatorId, indicatorGroupId);
+    }
+
+    //------------------------------------
+    constructor(private _dataSerice: DataService, private _activateRoute: ActivatedRoute, private _router: Router, private _convertService: ConvertService){
+        this._urlSubscription = _activateRoute.params.subscribe(params=>{
+            this._onReloadPage(params['id'], params['date'], params['indicatorGroupId'], params['indicatorId']);
+        });
+    }
+
+    private _reloadPage(){
+        if(!this._indicatorInfo)
+            this._router.navigate(["/station", this.CurStation.Id, this._convertService.NavigationDateString(this.Date)]);
+        else{
+            this._router.navigate(["/station", this.CurStation.Id, this._convertService.NavigationDateString(this.Date), this._indicatorInfo.ParentId, this._indicatorInfo.Id]);
+        }
     }
 
 }

@@ -4,13 +4,13 @@
 			<dashboard-menu></dashboard-menu>
 		</div>
 		<div class='station-select'>
-			<custom-select *ngIf='CurStation' [(Value)]='CurStation' (ValueChange)='_onStationChange()' [Options]='StationOptions'></custom-select>
+			<custom-select *ngIf='CurStation && StationOptions'  [(Value)]='CurStation' (ValueChange)='_reloadPage()' [Options]='StationOptions'></custom-select>
 		</div>
 		<div class='period-select'>
 				<custom-select [(Value)]='CurPeriod' [Options]='PeriodOptions'></custom-select>
 		</div>
 		<div class='date-time-picker'>
-			<datetime-picker [(Value)]='Date' [Type]='CurPeriod'></datetime-picker>	
+			<datetime-picker [(Value)]='Date' (ValueChange)='_reloadPage()' [Type]='CurPeriod'></datetime-picker>	
 		</div>
 	</div>
 	<div class='body'>
@@ -34,7 +34,9 @@
 			</div>
 		</div>
 		<div class='data' *ngIf='CurStation'>
-			<station-dashboard-data [Date]='Date' [Period]='CurPeriod' [Object]='CurObject'></station-dashboard-data>
+			<station-dashboard-data [Date]='Date' [Period]='CurPeriod' [Object]='CurObject'
+				[(IndicatorInfo)]='_indicatorInfo' (IndicatorInfoChange)='_indicatorChange()'
+			></station-dashboard-data>
 		</div>
 	</div>
 	<div class='summary' *ngIf='CurStation'>
