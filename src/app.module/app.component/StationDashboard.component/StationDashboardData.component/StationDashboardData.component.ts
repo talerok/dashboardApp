@@ -72,6 +72,7 @@ export class StationDashboardData {
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        console.log(changes);
         if(changes.Object)
             this._indicatorOptions = this._generateOptions();
     
@@ -89,7 +90,6 @@ export class StationDashboardData {
         this._data = await
             this._dataSerice.GetStationObjectData(this.Object, this._curIndicatorGroup, this.Date, this.Period); 
         this.refreshIndicator();
-
         this._refreshChart();
     }
 
@@ -152,7 +152,6 @@ export class StationDashboardData {
         this.IndicatorInfoChange.emit(
             new IndicatorInfo(this._curIndicator.Id, this._curIndicatorGroup.Id)
         );
-        this._refreshChart();
     }
 
     constructor(private _dataSerice: DataService){
