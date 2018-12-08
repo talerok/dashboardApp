@@ -109,7 +109,8 @@ export class SemiFakeDateService implements DataService {
                 x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,
                 x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0,
                 this._converIndicatorStatus(x.indicatorStatus),
-                new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, [], x.coordinateX, x.coordinateY, []))));
+                x.isStaticData,
+                new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, [], x.coordinateX, x.coordinateY, [], x.isActive))));
         }catch(ex) {
             console.log(ex);
             return [];
@@ -121,7 +122,7 @@ export class SemiFakeDateService implements DataService {
             let indicators : Indicator[] = await this._getIndicatorsGroup();
             return this._get("powerhouses").then(data => data.map((x: any) =>
                 new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, indicators, x.coordinateX, x.coordinateY, 
-                    x.powerUnits.map((s: any) => new StationBlock(s.powerUnitID, s.powerHouseID, s.powerUnitName, indicators, s.isActive)))));
+                    x.powerUnits.map((s: any) => new StationBlock(s.powerUnitID, s.powerHouseID, s.powerUnitName, indicators, s.isActive)), x.isActive)));
         }catch(ex){
             return [];
         }   
@@ -140,6 +141,7 @@ export class SemiFakeDateService implements DataService {
                         x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,  
                         x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0, 
                         this._converIndicatorStatus(x.indicatorStatus), 
+                        x.isStaticData,
                         new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
                     return new StationObjectIndicatorValues(res);
                 }

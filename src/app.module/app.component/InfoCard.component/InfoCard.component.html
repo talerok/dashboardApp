@@ -3,7 +3,7 @@
         <div *ngIf='Data.type' class='icon-{{Data.type}} icon'></div>
         <div class='tittle {{Data.type ? "tittle-bold" : ""}}'>{{Data.name}}</div>
     </div>
-    <div class="body">
+    <div class="body {{Data.indicatorValue.IsStatic ? 'static' : ''}}">
         <div class='plan-value'>
             <div class='value'>{{Data.indicatorValue.Plan}}</div>
             <div class='indicator-icon icon-{{GetValueCompareClass(Data.indicatorValue.Plan)}} icon'></div>

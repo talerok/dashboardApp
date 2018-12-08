@@ -10,7 +10,7 @@
 				<custom-select [(Value)]='CurPeriod' [Options]='PeriodOptions'></custom-select>
 		</div>
 		<div class='date-time-picker' *ngIf='Date'>
-			<datetime-picker [(Value)]='Date' (ValueChange)='_reloadPage()' [Type]='CurPeriod'></datetime-picker>	
+			<datetime-picker [(Value)]='Date' [Type]='CurPeriod'></datetime-picker>	
 		</div>
 	</div>
 	<div class='body'>
@@ -35,7 +35,7 @@
 		</div>
 		<div class='data' *ngIf='CurStation'>
 			<station-dashboard-data [Date]='Date' [Period]='CurPeriod' [Object]='CurObject'
-				[(IndicatorInfo)]='_indicatorInfo' (IndicatorInfoChange)='_indicatorChange()'
+				[(IndicatorInfo)]='_indicatorInfo'
 			></station-dashboard-data>
 		</div>
 	</div>

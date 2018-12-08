@@ -6,6 +6,7 @@ export class IndicatorValue<T>{
         readonly Prev: number,
         readonly Value: number,
         readonly Status: Status,
+        readonly IsStatic: boolean,
         readonly Object: T
     ){}
 }

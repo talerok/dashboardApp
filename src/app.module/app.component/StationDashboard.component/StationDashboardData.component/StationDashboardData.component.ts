@@ -24,6 +24,7 @@ export class StationDashboardData {
 
     @Input() IndicatorInfo: IndicatorInfo;
     @Output() IndicatorInfoChange: EventEmitter<IndicatorInfo> = new EventEmitter<IndicatorInfo>(); 
+
     private _curIndicatorGroup: Indicator;
     private _curIndicator: Indicator;
 
@@ -72,7 +73,6 @@ export class StationDashboardData {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        console.log(changes);
         if(changes.Object)
             this._indicatorOptions = this._generateOptions();
     
@@ -136,12 +136,18 @@ export class StationDashboardData {
             return "";
     }
 
+    private _refreshIndicatorInfo(){
+        let newIndicatorInfo = new IndicatorInfo(
+            this._curIndicator ? this._curIndicator.Id : null, 
+            this._curIndicatorGroup ? this._curIndicatorGroup.Id : null);
+        this.IndicatorInfo = newIndicatorInfo;
+        this.IndicatorInfoChange.emit(newIndicatorInfo);
+    }
+
     private _indicatorGroupChange(indicator: Indicator){
         this._curIndicatorGroup = indicator;
         this.refreshIndicator();
-        this.IndicatorInfoChange.emit(
-            new IndicatorInfo(this._curIndicator.Id, this._curIndicatorGroup.Id)
-        );
+        this._refreshIndicatorInfo();
     }
 
     private _cardClick(card: InfoCard<Indicator>){
@@ -149,9 +155,7 @@ export class StationDashboardData {
             return;
 
         this._curIndicator = card.indicator;
-        this.IndicatorInfoChange.emit(
-            new IndicatorInfo(this._curIndicator.Id, this._curIndicatorGroup.Id)
-        );
+        this._refreshIndicatorInfo();
     }
 
     constructor(private _dataSerice: DataService){

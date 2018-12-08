@@ -23,7 +23,7 @@ export class StationDashboard {
         new CustomSelectOption("icon-period", "Ежегодично", "", Period.Year),
     ];
 
-    public CurPeriod = Period.Day;
+    public CurPeriod = Period.Month;
 
     public StationOptions : CustomSelectOption[];
 
@@ -116,20 +116,18 @@ export class StationDashboard {
         return this._dataSerice.GetStations().then(x => x.map((i) => new CustomSelectOption("icon-" + i.Type + "-neutral", i.Name, "", i)));
     }
 
-    private _indicatorChange(){
-        this._reloadPage();
-    }
 
     private async _onReloadPage(stationId: string, date: string, indicatorGroupId: string, indicatorId: string){
         if(!this.StationOptions)
             this.StationOptions = await this._getStationOptions();
         let newDate = new Date(date);
-        if(newDate != this.Date)
+        if(!this.Date || newDate.getTime() != this.Date.getTime())
             this.Date = !isNaN(newDate.getTime()) ? newDate : new Date();
         if(!this.CurStation || this.CurStation.Id !== stationId)
             this._setActiveStationById(stationId);
-        if(!this._indicatorInfo || this._indicatorInfo.Id != indicatorId || this._indicatorInfo.ParentId != indicatorGroupId)
+        if(!this._indicatorInfo || this._indicatorInfo.Id != indicatorId || this._indicatorInfo.ParentId != indicatorGroupId){
             this._indicatorInfo = new IndicatorInfo(indicatorId, indicatorGroupId);
+        }
     }
 
     //------------------------------------
@@ -137,14 +135,6 @@ export class StationDashboard {
         this._urlSubscription = _activateRoute.params.subscribe(params=>{
             this._onReloadPage(params['id'], params['date'], params['indicatorGroupId'], params['indicatorId']);
         });
-    }
-
-    private _reloadPage(){
-        if(!this._indicatorInfo)
-            this._router.navigate(["/station", this.CurStation.Id, this._convertService.NavigationDateString(this.Date)]);
-        else{
-            this._router.navigate(["/station", this.CurStation.Id, this._convertService.NavigationDateString(this.Date), this._indicatorInfo.ParentId, this._indicatorInfo.Id]);
-        }
     }
 
 }

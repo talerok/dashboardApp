@@ -27,7 +27,7 @@ export class StationMap {
     private _generateActiveIconHtml(info: InfoCard<Station>) : string{
         let value = info.indicatorValue.Value + " " + info.indicator.Unit;
         let station = info.indicatorValue.Object as Station;
-        return "<div class='leaflet-station-icon active'><div class='leaflet-station-icon-value'>" + value + "</div><div class='leaflet-station-icon-point-container icon-" + station.Type + "'><div class='leaflet-station-icon-point " + info.indicatorValue.Status + "'></div></div><div class='leaflet-station-icon-name'>" + info.name + "</div></div>"
+        return "<div class='leaflet-station-icon active'><div class='leaflet-station-icon-value'>" + value + "</div><div class='leaflet-station-icon-point-container icon-" + station.Type + "-reverse'><div class='leaflet-station-icon-point " + info.indicatorValue.Status + "'></div></div><div class='leaflet-station-icon-name'>" + info.name + "</div></div>"
     }
 
     private _generateIcon(info: InfoCard<Station>) : L.DivIcon {

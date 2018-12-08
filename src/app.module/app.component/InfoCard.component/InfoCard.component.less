@@ -47,7 +47,6 @@
         }    
     
         .body{
-            position: relative;
             .plan-value, .prev-value{
                 .value{
                     margin-right: 5px;
@@ -68,12 +67,14 @@
 
             .plan-value{
                 position: absolute;
+                top: unset;
                 bottom: 10px;
                 left: 20px;
             }
 
             .prev-value{
                 position: absolute;
+                top: unset;
                 bottom: 10px;
                 left: 110px;
             }
@@ -82,8 +83,11 @@
 
     .body{
         padding: 20px;
+        height: 135px;
+        position: relative;
         background-color: @thirdBackgroundColor;
         .plan-value, .prev-value{
+            height: 20px;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
@@ -129,10 +133,21 @@
                     margin: 10px;
                     border-radius: 20px;
                     background-color: @thirdColor;
-                    opacity: 0.4;
+                    opacity: 0.2;
                     position: absolute;
                 }
 
+            }
+
+        }
+
+        &.static{
+            .plan-value, .prev-value{
+                display: none;
+            }
+
+            .cur-value{
+                margin-top: 25px;
             }
 
         }

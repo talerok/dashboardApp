@@ -29,7 +29,8 @@ export class MainDashboard {
     }
 
     public GoToStationDashboard(info: InfoCard<Station>) : void{
-        this._router.navigate(["/station", info.indicatorValue.Object.Id,  this._converService.NavigationDateString(this.CurDate), this.CurIndicator.ParentId, this.CurIndicator.Id]);
+        if(info.indicatorValue.Object.Status)
+            this._router.navigate(["/station", info.indicatorValue.Object.Id,  this._converService.NavigationDateString(this.CurDate), this.CurIndicator.ParentId, this.CurIndicator.Id]);
     }
 
     public Indicators: Indicator[] = [];
@@ -62,7 +63,7 @@ export class MainDashboard {
           }, 0);  
     }
 
-    public CurDate : Date = new Date("11-30-2018");
+    public CurDate : Date = new Date("11-30-2018 7:00");
 
     private _activeCard: InfoCard<Station>;
 

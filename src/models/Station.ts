@@ -29,6 +29,7 @@ export class Station extends BaseStationObject{
         readonly XCord: number,
         readonly YCord: number,
         readonly Blocks: StationBlock[],
+        readonly Status: boolean
     ){
         super(Id,Name,Indicators);
     }
