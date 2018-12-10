@@ -38,31 +38,27 @@ export class SemiFakeDateService implements DataService {
             this.LoadEvent.emit(false);
     }
 
+
     private _post(url: string, data: any) : Promise<any> {
         this._initLoading();
-        try{
-            return this._http.post(this._baseUrl + url,  JSON.stringify(data), httpOptions).toPromise().then((x) => {
-                this._stopLoading();
-                return x;
-            });
-        }catch{
+        return this._http.post(this._baseUrl + url,  JSON.stringify(data), httpOptions).toPromise().then((x) => {
             this._stopLoading();
-            throw new Error("Loading error");
-        }
+            return x;
+        }).catch(error => {
+            this._stopLoading();
+            throw new Error("httpError");
+        });
     }
 
     private _get(url: string) : Promise<any>{
         this._initLoading();
-        try{
-            return this._http.get(this._baseUrl + url, httpOptions).toPromise().then((x) => {
-                this._stopLoading();
-                return x;
-            });
-        }catch{
-            console.log(123);
+        return this._http.get(this._baseUrl + url, httpOptions).toPromise().then((x) => {
             this._stopLoading();
-            throw new Error("Loading error");
-        }
+            return x;
+        }).catch(error => {
+            this._stopLoading();
+            throw new Error("httpError");
+        });
     }
 
     private _dateConvert(date: Date) : string{
@@ -102,54 +98,48 @@ export class SemiFakeDateService implements DataService {
     }
     
     async GetAllStationsData(indicator : Indicator, date: Date) :  Promise<IndicatorValue<Station>[]>{
-        try{
-            return this._get("powerhousedatatest?IndicatorId=" + indicator.Id + "&Date=" + this._dateConvert(date)).then(data => 
-            data.powerHousesData.map((x: any) => new IndicatorValue<Station>(
-                x.indicatorValuePlan ? Math.round(x.indicatorValuePlan) : 0,
-                x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,
-                x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0,
-                this._converIndicatorStatus(x.indicatorStatus),
-                x.isStaticData,
-                new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, [], x.coordinateX, x.coordinateY, [], x.isActive))));
-        }catch(ex) {
-            console.log(ex);
-            return [];
-        }
+        return this._get("powerhousedatatest?IndicatorId=" + indicator.Id + "&Date=" + this._dateConvert(date)).then(data => 
+        data.powerHousesData.map((x: any) => new IndicatorValue<Station>(
+            x.indicatorValuePlan ? Math.round(x.indicatorValuePlan) : 0,
+            x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,
+            x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0,
+            this._converIndicatorStatus(x.indicatorStatus),
+            x.isStaticData,
+            new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, [], x.coordinateX, x.coordinateY, [], x.isActive)))).catch(
+                error => []);
     }
     
     async GetStations() : Promise<Station[]>{
-        try{
-            let indicators : Indicator[] = await this._getIndicatorsGroup();
-            return this._get("powerhouses").then(data => data.map((x: any) =>
-                new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, indicators, x.coordinateX, x.coordinateY, 
-                    x.powerUnits.map((s: any) => new StationBlock(s.powerUnitID, s.powerHouseID, s.powerUnitName, indicators, s.isActive)), x.isActive)));
-        }catch(ex){
-            return [];
-        }   
+        let indicators : Indicator[] = await this._getIndicatorsGroup();
+        return this._get("powerhouses").then(data => data.map((x: any) =>
+            new Station(x.powerHouseID, x.powerHouseName, x.powerHouseType, indicators, x.coordinateX, x.coordinateY, 
+                x.powerUnits.map((s: any) => new StationBlock(s.powerUnitID, s.powerHouseID, s.powerUnitName, indicators, s.isActive)), x.isActive))).catch(
+                    error => []);
     }
 
     async GetStationObjectData(object: BaseStationObject, indicator: Indicator, date: Date, period: Period):  Promise<any>{
-        try{
-            if(object instanceof BlockCollection)
-                throw new Error("block collection is not supported");
+        let urlData: string  = "?indicatorGroupID=" + indicator.Id + "&periodtype=" + this._convertPeriod(period) + "&date=" + this._dateConvert(date);
+        if(object instanceof BlockCollection)
+            object.Blocks.forEach((x) => {
+                urlData+="&itemsID=" + x.Id;
+            });
+        else
+            urlData+="&itemID=" + object.Id;
 
-            let urlData = "?indicatorGroupID=" + indicator.Id + "&periodtype=" + this._convertPeriod(period) + "&date=" + this._dateConvert(date) + "&itemID=" + object.Id;
-            return this._get("IndicatorGroupData" + urlData).then(data => {
-                let res: IndicatorValue<Indicator>[] = data.indicatorGroupData.map((x: any) => 
-                    new IndicatorValue<Indicator>(
-                        x.indicatorValuePlan ? Math.round(x.indicatorValuePlan) : 0, 
-                        x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,  
-                        x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0, 
-                        this._converIndicatorStatus(x.indicatorStatus), 
-                        x.isStaticData,
-                        new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
-                    return new StationObjectIndicatorValues(res);
-                }
-            );
-        }catch(ex){
-            console.log(ex);
-            return new StationObjectIndicatorValues([]);
-        }
+        return this._get("IndicatorGroupData" + urlData).then(data => {
+            let res: IndicatorValue<Indicator>[] = data.indicatorGroupData.map((x: any) => 
+                new IndicatorValue<Indicator>(
+                    x.indicatorValuePlan ? Math.round(x.indicatorValuePlan) : 0, 
+                    x.indicatorValuePrevPeriod ? Math.round(x.indicatorValuePrevPeriod) : 0,  
+                    x.indicatorValueFact ? Math.round(x.indicatorValueFact) : 0, 
+                    this._converIndicatorStatus(x.indicatorStatus), 
+                    x.isStaticData,
+                    new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
+                return new StationObjectIndicatorValues(res);
+            }
+        ).catch(
+            error => new StationObjectIndicatorValues([]));
+        
     }
 
     private _convertDatePart(num: number) : string{
@@ -173,25 +163,28 @@ export class SemiFakeDateService implements DataService {
     }
 
     async GetDataFromPeriod(object: BaseStationObject, indicator: Indicator, date: Date, period: Period) : Promise<MultiIndicatorValue>{
-        try{
-            let urlData = "?indicatorID=" + indicator.Id + "&periodtype=" + this._convertPeriod(period) + "&date=" + this._dateConvert(date) + "&itemID=" + object.Id;
-            return this._get("IndicatorData" + urlData).then(data => {
-                    let plan: number[] = [];
-                    let prev: number[] = [];
-                    let fact: number[] = [];
-                    let dates: string[] = [];
-                    data.indicatorData.forEach((x : any) => {
-                        plan.push(x.indicatorValuePlan);
-                        prev.push(x.indicatorValuePrevPeriod);
-                        fact.push(x.indicatorValueFact)
-                        dates.push(this._formateDate(x.date, period));
-                    });
-                    return new MultiIndicatorValue(plan,prev,fact, dates);
+        let urlData: string  = "?indicatorID=" + indicator.Id + "&periodtype=" + this._convertPeriod(period) + "&date=" + this._dateConvert(date);
+        if(object instanceof BlockCollection)
+            object.Blocks.forEach((x) => {
+                urlData+="&itemsID=" + x.Id;
             });
-        }catch(ex){
-            console.log(ex);
-            return new MultiIndicatorValue([],[],[],[]);
-        }
+        else
+            urlData+="&itemID=" + object.Id;
+            
+        return this._get("IndicatorData" + urlData).then(data => {
+                let plan: number[] = [];
+                let prev: number[] = [];
+                let fact: number[] = [];
+                let dates: string[] = [];
+                data.indicatorData.forEach((x : any) => {
+                    plan.push(x.indicatorValuePlan);
+                    prev.push(x.indicatorValuePrevPeriod);
+                    fact.push(x.indicatorValueFact)
+                    dates.push(this._formateDate(x.date, period));
+                });
+                return new MultiIndicatorValue(plan,prev,fact, dates);
+        }).catch(
+            error => new MultiIndicatorValue([],[],[],[]));
     }
 
     async GetBlockCollection(blocks: StationBlock[]) : Promise<BlockCollection>{
