@@ -9,11 +9,13 @@ import { Period } from "../models/Period";
 import { MultiIndicatorValue } from "../models/MultiIndicatorValue";
 import { StateTableRow, StateTable } from "../models/StateTable";
 import { StationObjectIndicatorValues } from "../models/StationObjectIndicatorValues"
+import { ErrorMessage } from "../models/ErrorMessage"
 
 @Injectable()
 export class FakeDataService implements DataService {
 
     public LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
+    public ErrorEvent : EventEmitter<ErrorMessage> = new EventEmitter<ErrorMessage>();
 
     private _timeout : number = 500;
 

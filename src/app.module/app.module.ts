@@ -23,6 +23,7 @@ import { IndicatorChart } from './app.component/IndicatorChart.component/Indicat
 import { StationMap } from './app.component/StationMap.component/StationMap.component';
 import { StateTableComponent } from './app.component/StationDashboard.component/StationDashboardData.component/StateTable.component/StateTable.component';
 import { IndicatorCardsTable } from './app.component/StationDashboard.component/StationDashboardData.component/IndicatorCards.component/IndicatorCards.component';
+import { ToastrModule } from 'ngx-toastr';
 
 const appRoutes: Routes =[
     { path: 'station/:id/:date/:indicatorGroupId/:indicatorId', component: StationDashboard },
@@ -35,7 +36,7 @@ const appRoutes: Routes =[
 ];
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes), NgScrollbarModule, HttpClientModule],
+    imports:      [ BrowserModule, FormsModule, HttpClientModule, MaterialModule, RouterModule.forRoot(appRoutes), NgScrollbarModule, HttpClientModule, ToastrModule.forRoot()],
     declarations: [ AppComponent, InfoCardComponent, MainDashboard, StationDashboard, Menu, StationDashboardData, CustomSelect, InputWrapper, DateTimePicker, IndicatorChart, StationMap, StateTableComponent, IndicatorCardsTable ],
     bootstrap:    [ AppComponent ],
     providers: [

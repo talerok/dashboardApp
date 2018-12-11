@@ -11,6 +11,7 @@ import { Period } from "../models/Period";
 import { MultiIndicatorValue } from "../models/MultiIndicatorValue";
 import { StationObjectIndicatorValues } from '../models/StationObjectIndicatorValues';
 import { Expansion } from '@angular/compiler';
+import { ErrorMessage } from "../models/ErrorMessage"
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -20,6 +21,9 @@ const httpOptions = {
 
 @Injectable()
 export class SemiFakeDateService implements DataService {
+
+    LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
+    ErrorEvent : EventEmitter<ErrorMessage> = new EventEmitter<ErrorMessage>();
 
     //@ts-ignore
     private _baseUrl: string = globalConfig.baseUrl;
@@ -38,6 +42,13 @@ export class SemiFakeDateService implements DataService {
             this.LoadEvent.emit(false);
     }
 
+    private _emitDownloadErrorEvent(){
+        this.ErrorEvent.emit(new ErrorMessage("Ошибка загрузки", "Ошибка загрузки данных. Пожалуйста обратитесь к администратору."));
+    }
+
+    private _emitProccesDataErrorEvent(){
+        this.ErrorEvent.emit(new ErrorMessage("Ошибка обработки данных", "Ошибка обработки данных. Пожалуйста обратитесь к администратору."));
+    }
 
     private _post(url: string, data: any) : Promise<any> {
         this._initLoading();
@@ -46,7 +57,7 @@ export class SemiFakeDateService implements DataService {
             return x;
         }).catch(error => {
             this._stopLoading();
-            throw new Error("httpError");
+            this._emitDownloadErrorEvent();
         });
     }
 
@@ -57,7 +68,7 @@ export class SemiFakeDateService implements DataService {
             return x;
         }).catch(error => {
             this._stopLoading();
-            throw new Error("httpError");
+            this._emitDownloadErrorEvent();
         });
     }
 
@@ -79,22 +90,14 @@ export class SemiFakeDateService implements DataService {
         if(this._indicatorGroups)
             return this._indicatorGroups;
         else
-            try{
-                return await this._get("indicatorgroups").then(data => data.map((x: any) => new Indicator(x.indicatorGroupID, null, x.indicatorGroupName, "", x.indicatorType)));
-            }catch(ex){
-                console.log(ex);
-                return [];
-            }
+            return await this._get("indicatorgroups").then(data => data.map((x: any) => new Indicator(x.indicatorGroupID, null, x.indicatorGroupName, "", x.indicatorType)))
+                .catch(x => []);
     }
     
 
     async GetAllStationIndicators() :  Promise<Indicator[]>{
-        try{
-            return this._get("indicators").then(data => data.map((x : any) => new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)));
-        }catch(ex){
-            console.log(ex);
-            return [];
-        }
+        return this._get("indicators").then(data => data.map((x : any) => new Indicator(x.indicatorID, x.indicatorGroupID, x.indicatorName, x.unitMeasure, x.indicatorType)))
+            .catch(x => []);
     }
     
     async GetAllStationsData(indicator : Indicator, date: Date) :  Promise<IndicatorValue<Station>[]>{
@@ -192,8 +195,7 @@ export class SemiFakeDateService implements DataService {
         return new BlockCollection(blocks, indicators);
     }
 
-    LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
-
+    
     constructor(private _http: HttpClient){
     }
 }

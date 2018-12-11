@@ -4,6 +4,7 @@ import { IndicatorValue } from "../../models/IndicatorValue";
 import { Station, BaseStationObject, BlockCollection, StationBlock } from '../../models/Station'
 import { Period } from "../../models/Period";
 import { MultiIndicatorValue } from "../../models/MultiIndicatorValue";
+import { ErrorMessage } from "../../models/ErrorMessage"
 
 @Injectable()
 export abstract class DataService{
@@ -15,4 +16,5 @@ export abstract class DataService{
     abstract async GetBlockCollection(blocks: StationBlock[]) : Promise<BlockCollection>;
 
     abstract LoadEvent : EventEmitter<boolean>;
+    abstract ErrorEvent: EventEmitter<ErrorMessage>;
 }
