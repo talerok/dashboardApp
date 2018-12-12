@@ -15,7 +15,6 @@ import { ErrorMessage } from "../models/ErrorMessage"
 export class FakeDataService implements DataService {
 
     public LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
-    public ErrorEvent : EventEmitter<ErrorMessage> = new EventEmitter<ErrorMessage>();
 
     private _timeout : number = 500;
 

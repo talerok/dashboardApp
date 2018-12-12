@@ -16,5 +16,4 @@ export abstract class DataService{
     abstract async GetBlockCollection(blocks: StationBlock[]) : Promise<BlockCollection>;
 
     abstract LoadEvent : EventEmitter<boolean>;
-    abstract ErrorEvent: EventEmitter<ErrorMessage>;
 }

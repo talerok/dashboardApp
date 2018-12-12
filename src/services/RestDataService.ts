@@ -12,6 +12,7 @@ import { MultiIndicatorValue } from "../models/MultiIndicatorValue";
 import { StationObjectIndicatorValues } from '../models/StationObjectIndicatorValues';
 import { Expansion } from '@angular/compiler';
 import { ErrorMessage } from "../models/ErrorMessage"
+import { NotificationMessagesService } from './Abstract/NotificationMessagesService';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -20,10 +21,9 @@ const httpOptions = {
   };
 
 @Injectable()
-export class SemiFakeDateService implements DataService {
+export class RestDateService implements DataService {
 
     LoadEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
-    ErrorEvent : EventEmitter<ErrorMessage> = new EventEmitter<ErrorMessage>();
 
     //@ts-ignore
     private _baseUrl: string = globalConfig.baseUrl;
@@ -43,11 +43,11 @@ export class SemiFakeDateService implements DataService {
     }
 
     private _emitDownloadErrorEvent(){
-        this.ErrorEvent.emit(new ErrorMessage("Ошибка загрузки", "Ошибка загрузки данных. Пожалуйста обратитесь к администратору."));
+        this._notificationService.ErrorEvent.emit(new ErrorMessage("Ошибка загрузки", "Ошибка загрузки данных. Пожалуйста обратитесь к администратору."));
     }
 
     private _emitProccesDataErrorEvent(){
-        this.ErrorEvent.emit(new ErrorMessage("Ошибка обработки данных", "Ошибка обработки данных. Пожалуйста обратитесь к администратору."));
+        this._notificationService.ErrorEvent.emit(new ErrorMessage("Ошибка обработки данных", "Ошибка обработки данных. Пожалуйста обратитесь к администратору."));
     }
 
     private _post(url: string, data: any) : Promise<any> {
@@ -196,6 +196,6 @@ export class SemiFakeDateService implements DataService {
     }
 
     
-    constructor(private _http: HttpClient){
+    constructor(private _http: HttpClient, private _notificationService: NotificationMessagesService){
     }
 }

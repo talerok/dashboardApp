@@ -1,9 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { InfoCard } from "../../models/InfoCard"
 import { DataService } from '../../services/Abstract/DataService';
-import { SemiFakeDateService } from '../../services/SemiFakeDataService';
+import { RestDateService } from '../../services/RestDataService';
 import { ConvertService } from './../../services/ConvertService';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorMessage } from '../../models/ErrorMessage';
+import { NotificationMessagesService } from '../../services/Abstract/NotificationMessagesService';
+import { ToastrNoticicationService } from '../../services/ToastrNotificationService';
 
 @Component({
     selector: 'app',
@@ -11,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./app.component.less', './app.component.icons.less'],
     encapsulation: ViewEncapsulation.None,
     providers: [
-        {provide: DataService, useClass: SemiFakeDateService},
+        {provide: NotificationMessagesService, useClass: ToastrNoticicationService},
+        {provide: DataService, useClass: RestDateService},
         ConvertService
     ]
 })
@@ -19,11 +23,5 @@ export class AppComponent {
 
     private _spinnerActive : boolean = false;
 
-    constructor(private _dataSerivce : DataService, private _toastrService: ToastrService){
-        _dataSerivce.LoadEvent.subscribe((x : boolean) => {
-            setTimeout(() => {
-                this._spinnerActive = x;
-            }, 0);
-        });
-    }
+    constructor(private _dataSerivce : DataService, private _toastrService: ToastrService){}
 }
