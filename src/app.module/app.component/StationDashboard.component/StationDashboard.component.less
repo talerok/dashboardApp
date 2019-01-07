@@ -112,32 +112,32 @@
                         border-style: solid;
 
                         &.on{
-                            background-color: @thirdBackgroundColor;
+                            background-color: @positiveColor;
                             border-color: @positiveColor;
                         }
 
                         &.off{
-                            background-color: @thirdBackgroundColor;   
+                            background-color: @negativeColor;   
                             border-color: @negativeColor;
                         }
 
 
                     }
 
-                    &:hover, &.active, &.considered{
+                    /*&:hover, &.active, &.considered{
                         .status{                      
                             &.on{
                                 background-color: @positiveColor;
-                                border-color: @thirdBackgroundColor;
+                                border-color: @positiveColor;
                             }
 
                             &.off{
                                 background-color: @negativeColor;
-                                border-color: @thirdBackgroundColor;
+                                border-color: @negativeColor;
                             }
 
                         }
-                    }
+                    }*/
 
                     &.considered{
                         background-color: @secondColor;
