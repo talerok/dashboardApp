@@ -4,12 +4,12 @@
         <div class='tittle {{Data.type ? "tittle-bold" : ""}}'>{{Data.name}}</div>
     </div>
     <div class="body {{Data.indicatorValue.IsStatic ? 'static' : ''}}">
-        <div class='plan-value'>
+        <div class="plan-value">
             <div class='value'>{{Data.indicatorValue.Plan}}</div>
             <div class='indicator-icon icon-{{GetValueCompareClass(Data.indicatorValue.Plan)}} icon'></div>
             <div class='icon-plan-value icon'></div>          
         </div>
-        <div class='prev-value'>
+        <div class="prev-value {{!Data.ShowPrevValue ? 'hide' : ''}}">
             <div class='value'>{{Data.indicatorValue.Prev}}</div>
             <div class='indicator-icon icon-{{GetValueCompareClass(Data.indicatorValue.Prev)}} icon'></div>
             <div class='icon-prev-value icon'></div>           

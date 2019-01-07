@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { InfoCard } from "../../../models/InfoCard"
+import { getSupportedInputTypes } from '@angular/cdk/platform';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class InfoCardComponent {
     @Input() public Data : InfoCard<any> = null;
     @Input() public Active: boolean = false;
     @Input() public AltStyle : string = '';
-
+    @Input() public ShowPrevValue : boolean  = false;
     public GetValueCompareClass(value : number) : string {
         if(this.Data.indicatorValue.Value < value)
             return "less";
